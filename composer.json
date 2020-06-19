@@ -1,0 +1,31 @@
+{
+    "name": "dainsys/locky",
+    "description": "Security package for Dainsys",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yismen Jorge",
+            "email": "yismen.jorge@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Dainsys\\Locky\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dainsys\\Locky\\Tests\\": "tests/"
+        }
+    },
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dainsys\\Locky\\LockyServiceProvider"
+            ]
+        }
+    }
+}
