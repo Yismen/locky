@@ -17,8 +17,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        dd("adsf");
-        return $user->email === config('locky.user_user');
+        return $user->email === config('locky.super_user_email');
     }
 
     /**
@@ -29,7 +28,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return $user->email === config('locky.user_user');
+        return $user->email === config('locky.super_user_email');
     }
 
     /**
@@ -40,7 +39,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->email === config('locky.user_user');
+        return $user->email === config('locky.super_user_email');
     }
 
     /**
@@ -51,7 +50,7 @@ class UserPolicy
      */
     public function update(User $user)
     {
-        return $user->email === config('locky.user_user');
+        return $user->email === config('locky.super_user_email');
     }
 
     /**
@@ -62,7 +61,7 @@ class UserPolicy
      */
     public function delete(User $user)
     {
-        return $user->email === config('locky.user_user');
+        return $user->email === config('locky.super_user_email');
     }
 
     /**
@@ -73,7 +72,7 @@ class UserPolicy
      */
     public function restore(User $user)
     {
-        return $user->email === config('locky.user_user');
+        return $user->email === config('locky.super_user_email');
     }
 
     /**
@@ -84,6 +83,6 @@ class UserPolicy
      */
     public function forceDelete(User $user)
     {
-        return $user->email === config('locky.user_user');
+        return $user->email === config('locky.super_user_email');
     }
 }

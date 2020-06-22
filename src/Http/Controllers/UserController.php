@@ -3,11 +3,20 @@
 namespace Dainsys\Locky\Http\Controllers;
 
 use App\User;
+use Dainsys\Locky\Repositories\UsersRepository;
+use Dainsys\Locky\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+    /**
+     * Authorize all model actions. Additional models should be authorized individually
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,34 +24,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Gate::none(['view-post', 'create-post', 'update-post'])) {
-            abort(403);
-        }
-    }
+        $users =  UsersRepository::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        if (Gate::none(['create-post'])) {
-            abort(403);
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        if (Gate::none(['create-post'])) {
-            abort(403);
-        }
+        return view('locky::users.index', compact('users'));
     }
 
     /**
@@ -53,9 +37,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (Gate::none(['view-post'])) {
-            abort(403);
-        }
+        return view('locky::users.show', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -66,9 +50,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        if (Gate::none(['update-post'])) {
-            abort(403);
-        }
+        return view('locky::users.edit', [
+            'user' => $user,
+            'roles' => Role::orderBy('name')
+                ->pluck('name', 'id')
+        ]);
     }
 
     /**
@@ -80,9 +66,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if (Gate::none(['update-post'])) {
-            abort(403);
-        }
+        $user->update($request->all());
+
+        return redirect()->route('users.edit', $user->id);
     }
 
     /**
@@ -93,8 +79,25 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if (Gate::none(['destroy-post'])) {
-            abort(403);
+        $user->delete();
+
+        return redirect()->route('users.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($user)
+    {
+        if (Gate::denies('delete', User::class)) {
+            abort(403, 'Unauthorized');
         }
+
+        $user = User::withTrashed()->find($user)->restore();
+
+        return redirect()->route('users.index');
     }
 }

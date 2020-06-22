@@ -6,20 +6,10 @@ use App\User;
 use Dainsys\Locky\LockyServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {
-    /**
-     * The log directory path.
-     *
-     * @var string
-     */
-
-    public $user;
-
-    /**
-     * Executed before each test.
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -27,7 +17,6 @@ class TestCase extends OrchestraTestCase
         $this->withFactories(realpath(dirname(__DIR__) . '/../../database/factories'));
         $this->loadLaravelMigrations();
         $this->artisan('migrate');
-        $this->user = factory(User::class)->create();
 
         Route::get('/login')->name('login');
         Route::post('/logout')->name('logout');
@@ -49,7 +38,10 @@ class TestCase extends OrchestraTestCase
      */
     protected function getPackageProviders($app): array
     {
-        return [LockyServiceProvider::class];
+        return [
+            LockyServiceProvider::class,
+            PermissionServiceProvider::class
+        ];
     }
 
     /**
@@ -65,8 +57,13 @@ class TestCase extends OrchestraTestCase
         return factory($model_string, $amount)->create($attributes);
     }
 
+    protected function user()
+    {
+        return factory(User::class)->create();
+    }
+
     protected function authorizedUser()
     {
-        return $this->create(User::class, null, ['email' => config('locky.super_user')]);
+        return factory(User::class)->create(['email' => config('locky.super_user_email')]);
     }
 }
