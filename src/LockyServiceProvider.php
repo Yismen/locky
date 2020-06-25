@@ -15,7 +15,8 @@ class LockyServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => UserPolicy::class
+        User::class => UserPolicy::class,
+        Role::class => UserPolicy::class,
     ];
 
     public function boot()

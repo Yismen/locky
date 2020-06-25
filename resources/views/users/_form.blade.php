@@ -17,7 +17,10 @@
     </div>
     <div class="col-sm-12 col-lg-6">
         <h5>Roles</h5>
-
+        
+        @can('update', Dainsys\Locky\Role::class)
+            Create Roles Form here
+        @endcan
         @foreach ($user->roles as $role)
             <div class="form-check">
               <label class="form-check-label">

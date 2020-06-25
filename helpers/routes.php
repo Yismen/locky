@@ -7,6 +7,8 @@ Route::middleware(['web', 'auth'])
     ->prefix('admin')
     ->group(function () {
         Route::post('users/{user}/restore', 'UserController@restore')->name('users.restore');
-
         Route::resource('users', 'UserController')->except('create');
+
+        Route::post('roles/{role}/restore', 'RoleController@restore')->name('roles.restore');
+        Route::resource('roles', 'RoleController')->except('create');
     });

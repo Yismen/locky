@@ -57,9 +57,9 @@ class TestCase extends OrchestraTestCase
         return factory($model_string, $amount)->create($attributes);
     }
 
-    protected function user()
+    protected function user($attributes = [])
     {
-        return factory(User::class)->create();
+        return factory(User::class)->create($attributes);
     }
 
     protected function authorizedUser()

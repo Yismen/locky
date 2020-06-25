@@ -66,7 +66,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $validatedData = $this->validate($request, [
+            'name' => 'required|min:5|unique:users,name,' . $user->id,
+            'email' =>  'required|email|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update($validatedData);
 
         return redirect()->route('users.edit', $user->id);
     }

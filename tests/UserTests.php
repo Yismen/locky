@@ -3,8 +3,8 @@
 namespace Dainsys\Locky\Tests;
 
 use App\User;
+use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Role;
-use Illuminate\Support\Facades\DB;
 
 class UserTests extends TestCase
 {
@@ -77,7 +77,7 @@ class UserTests extends TestCase
         $this->actingAs($this->authorizedUser())->get(route('users.index'))
             ->assertOk()
             ->assertViewIs('locky::users.index')
-            ->assertViewHas('users', User::orderBy('name')->get());
+            ->assertViewHas('users', UsersRepository::all());
     }
 
     /** @test */
@@ -142,4 +142,58 @@ class UserTests extends TestCase
      * Validation Tests
      * ===============================================================================
      */
+
+    /** @test */
+    public function name_and_email_is_required_to_update()
+    {
+        $attributes = ['name' => null, 'email' => null];
+        $user = factory(User::class)->create();
+
+        $this->actingAs($this->authorizedUser())
+            ->put(route('users.update', $user->id), $attributes)
+            ->assertSessionHasErrors(['name', 'email']);
+    }
+
+    /** @test */
+    public function name_and_email_should_be_minimum_5_characters()
+    {
+        $attributes = ['name' => '51', 'a@a.'];
+        $user = factory(User::class)->create();
+
+        $this->actingAs($this->authorizedUser())
+            ->put(route('users.update', $user->id), $attributes)
+            ->assertSessionHasErrors(['name', 'email']);
+    }
+
+    /** @test */
+    public function name_and_email_must_be_unique()
+    {
+        $user = factory(User::class)->create();
+        $secondUser = factory(User::class)->create();
+
+        $this->actingAs($this->authorizedUser())
+            ->put(route('users.update', $user->id), ['name' => $secondUser->name, 'email' => $secondUser->email])
+            ->assertSessionHasErrors(['name', 'email']);
+    }
+
+    /** @test */
+    public function name_and_email_must_be_unique_except_for_same_update()
+    {
+        $sameName = ['name' => 'Repeated Name', 'email' => 'repeated@email.com'];
+        $user = factory(User::class)->create($sameName);
+
+        $this->actingAs($this->authorizedUser())
+            ->put(route('users.update', $user->id), $sameName)
+            ->assertSessionDoesntHaveErrors(['name', 'email']);
+    }
+
+    /** @test */
+    public function email_must_be_of_type_email()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($this->authorizedUser())
+            ->put(route('users.update', $user->id), ['email' => 'not a valid email'])
+            ->assertSessionHasErrors('email');
+    }
 }
