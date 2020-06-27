@@ -9,6 +9,7 @@ Route::middleware(['web', 'auth'])
         Route::post('users/{user}/restore', 'UserController@restore')->name('users.restore');
         Route::resource('users', 'UserController')->except('create');
 
-        Route::post('roles/{role}/restore', 'RoleController@restore')->name('roles.restore');
         Route::resource('roles', 'RoleController')->except('create');
+
+        Route::resource('permissions', 'PermissionController')->except('create');
     });

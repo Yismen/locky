@@ -6,6 +6,7 @@ use App\User;
 use Dainsys\Locky\LockyServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Support\Facades\Route;
+use Laravel\Ui\UiServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends OrchestraTestCase
@@ -20,6 +21,7 @@ class TestCase extends OrchestraTestCase
 
         Route::get('/login')->name('login');
         Route::post('/logout')->name('logout');
+        Route::get('/password/reset/{token}')->name('password.reset');
     }
 
     /**
@@ -40,7 +42,8 @@ class TestCase extends OrchestraTestCase
     {
         return [
             LockyServiceProvider::class,
-            PermissionServiceProvider::class
+            PermissionServiceProvider::class,
+            UiServiceProvider::class,
         ];
     }
 

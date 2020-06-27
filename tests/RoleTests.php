@@ -3,6 +3,10 @@
 namespace Dainsys\Locky\Tests;
 
 use App\User;
+use Dainsys\Locky\Permission;
+use Dainsys\Locky\Repositories\PermissionsRepository;
+use Dainsys\Locky\Repositories\RolesRepository;
+use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Role;
 
 class RoleTests extends TestCase
@@ -33,9 +37,6 @@ class RoleTests extends TestCase
             ->assertRedirect(route('login'));
 
         $this->delete(route('roles.update', $role->id))
-            ->assertRedirect(route('login'));
-
-        $this->post(route('roles.restore', $role->id))
             ->assertRedirect(route('login'));
     }
 
@@ -73,11 +74,11 @@ class RoleTests extends TestCase
     public function role_can_see_roles()
     {
         factory(Role::class, 10)->create();
-
+        $this->withoutExceptionHandling();
         $this->actingAs($this->authorizedUser())->get(route('roles.index'))
             ->assertOk()
             ->assertViewIs('locky::roles.index')
-            ->assertViewHas('roles', Role::orderBy('name')->get());
+            ->assertViewHas('roles', RolesRepository::all());
     }
 
     /** @test */
@@ -109,7 +110,8 @@ class RoleTests extends TestCase
         $this->actingAs($this->authorizedUser())->get(route('roles.edit', $role->id))
             ->assertViewIs('locky::roles.edit')
             ->assertViewHas('role', $role)
-            ->assertViewHas('roles', Role::orderBy('name')->pluck('name', 'id'));
+            ->assertViewHas('users', UsersRepository::all())
+            ->assertViewHas('permissions', PermissionsRepository::all());
     }
 
     /** @test */
@@ -122,6 +124,24 @@ class RoleTests extends TestCase
             ->assertRedirect(route('roles.edit', $role->id));
 
         $this->assertDatabaseHas('roles', $attributes);
+    }
+
+    /** @test */
+    public function users_and_permissions_can_be_synced_on_update()
+    {
+        $this->withoutExceptionHandling();
+        $role = factory(Role::class)->create();
+        $users = factory(User::class, 3)->create()->pluck('id')->toArray();
+        $permissions = factory(Permission::class, 3)->create()->pluck('id')->toArray();
+
+        $attributes = array_merge($role->toArray(), [
+            'users' => (array) $users,
+            'permissions' => (array) $permissions
+        ]);
+
+        $this->actingAs($this->authorizedUser())->put(route('roles.update', $role->id), $attributes);
+        $this->assertEquals($users, $role->users()->pluck('id')->toArray());
+        $this->assertEquals($permissions, $role->permissions()->pluck('id')->toArray());
     }
 
     /** @test */

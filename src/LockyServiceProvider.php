@@ -3,7 +3,7 @@
 namespace Dainsys\Locky;
 
 use App\User;
-use Dainsys\Locky\Policies\UserPolicy;
+use Dainsys\Locky\Policies\SuperUserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,8 +15,9 @@ class LockyServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => UserPolicy::class,
-        Role::class => UserPolicy::class,
+        User::class => SuperUserPolicy::class,
+        Role::class => SuperUserPolicy::class,
+        Permission::class => SuperUserPolicy::class,
     ];
 
     public function boot()

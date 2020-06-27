@@ -12,11 +12,7 @@
                 @csrf
                 @method('PUT')
                 
-                @include('locky::users._form')
-                
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">UPDATE</button>
-                </div>
+                @include('locky::users._form', ['action' => 'UPDATE'])
             </form>
             
         </div>

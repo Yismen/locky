@@ -8,6 +8,6 @@ class RolesRepository implements ModelRepositoryInterface
 {
     public static function all()
     {
-        return Role::orderBy('name')->get();
+        return Role::orderBy('name')->with('users', 'permissions')->get();
     }
 }

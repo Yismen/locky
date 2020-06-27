@@ -5,7 +5,7 @@
                 <input type="text" 
                     class="form-control" 
                     name="name" 
-                    value="{{ old('name') ?? $role->name }}" 
+                    value="{{ old('name') ?? $permission->name }}" 
                     placeholder="Name" aria-label="Name" 
                     aria-describedby="button-addon2"
                 >
@@ -25,14 +25,14 @@
             @foreach ($users as $user)
                 <div class="form-check">
                     <label 
-                        class="form-check-label {{ $user->hasRole($role->name) ? 'bg-primary px-1 text-white' : '' }}" 
+                        class="form-check-label {{ $user->hasAnyPermission($permission->name) ? 'bg-primary px-1 text-white' : '' }}" 
                     >
                         <input type="checkbox" 
                             class="form-check-input" 
                             name="users[]" 
                             id="" 
                             value="{{ $user->id }}" 
-                            {{ $user->hasRole($role->name) ? 'checked' : '' }}
+                            {{ $user->hasAnyPermission($permission->name) ? 'checked' : '' }}
                         >
                         {{ $user->name }}
                     </label>
@@ -40,21 +40,21 @@
             @endforeach
         </div>
         <div class="col-sm-6">
-            <h5>Permissions</h5>           
+            <h5>Roles</h5>           
         
-            @foreach ($permissions as $permission)
+            @foreach ($roles as $role)
                 <div class="form-check">
                     <label 
-                        class="form-check-label {{ $permission->hasRole($role->name) ? 'bg-warning px-1 text-black' : '' }}" 
+                        class="form-check-label {{ $role->hasAnyPermission($permission->name) ? 'bg-warning px-1 text-' : '' }}" 
                     >
                         <input type="checkbox" 
                             class="form-check-input" 
-                            name="permissions[]" 
+                            name="roles[]" 
                             id="" 
-                            value="{{ $permission->id }}" 
-                            {{ $permission->hasRole($role->name) ? 'checked' : '' }}
+                            value="{{ $role->id }}" 
+                            {{ $role->hasAnyPermission($permission->name) ? 'checked' : '' }}
                         >
-                        {{ $permission->name }}
+                        {{ $role->name }}
                     </label>
                 </div>
             @endforeach

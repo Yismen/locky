@@ -3,8 +3,13 @@
 namespace Dainsys\Locky\Tests;
 
 use App\User;
-use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Role;
+use Dainsys\Locky\Events\UserCreated;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Dainsys\Locky\Repositories\RolesRepository;
+use Dainsys\Locky\Repositories\UsersRepository;
+use Dainsys\Locky\Notifications\UserCreatedNotification;
 
 class UserTests extends TestCase
 {
@@ -48,6 +53,9 @@ class UserTests extends TestCase
         $this->actingAs($user)->get(route('users.index'))
             ->assertForbidden();
 
+        $this->actingAs($user)->post(route('users.store'))
+            ->assertForbidden();
+
         $this->actingAs($user)->get(route('users.show', $user->id))
             ->assertForbidden();
 
@@ -57,7 +65,7 @@ class UserTests extends TestCase
         $this->actingAs($user)->patch(route('users.update', $user->id))
             ->assertForbidden();
 
-        $this->actingAs($user)->delete(route('users.update', $user->id))
+        $this->actingAs($user)->delete(route('users.destroy', $user->id))
             ->assertForbidden();
 
         $this->actingAs($user)->post(route('users.restore', $user->id))
@@ -92,6 +100,28 @@ class UserTests extends TestCase
     }
 
     /** @test */
+    public function user_can_be_stored()
+    {
+        Event::fake();
+        Notification::fake();
+        $attributes = ['name' => 'New User', 'email' => 'created@email.com', 'password' => 'plain password', 'password_confirmation' => 'plain password'];
+
+        $this->withoutExceptionHandling();
+        $this->actingAs($this->authorizedUser())
+            ->post(route('users.store'), $attributes)
+            ->assertRedirect(route('users.index'));
+
+        $this->assertDatabaseHas('users', [
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
+        ]);
+
+        $user = User::where('email', $attributes['email'])->first();
+        Event::assertDispatched(UserCreated::class);
+        Notification::assertSentTo($user, UserCreatedNotification::class);
+    }
+
+    /** @test */
     public function user_can_be_edited()
     {
         $this->withoutExceptionHandling();
@@ -100,7 +130,7 @@ class UserTests extends TestCase
         $this->actingAs($this->authorizedUser())->get(route('users.edit', $user->id))
             ->assertViewIs('locky::users.edit')
             ->assertViewHas('user', $user)
-            ->assertViewHas('roles', Role::orderBy('name')->pluck('name', 'id'));
+            ->assertViewHas('roles', RolesRepository::all());
     }
 
     /** @test */
@@ -113,6 +143,19 @@ class UserTests extends TestCase
             ->assertRedirect(route('users.edit', $user->id));
 
         $this->assertDatabaseHas('users', $attributes);
+    }
+
+    /** @test */
+    public function roles_can_be_synced_on_update()
+    {
+        $this->withoutExceptionHandling();
+        $user = factory(User::class)->create();
+        $roles = factory(Role::class, 3)->create()->pluck('id')->toArray();
+
+        $attributes = array_merge($user->toArray(), ['roles' => (array) $roles]);
+
+        $this->actingAs($this->authorizedUser())->put(route('users.update', $user->id), $attributes);
+        $this->assertEquals($roles, $user->roles()->pluck('id')->toArray());
     }
 
     /** @test */
@@ -144,6 +187,17 @@ class UserTests extends TestCase
      */
 
     /** @test */
+    public function name_and_email_and_password_are_required_to_create()
+    {
+        $attributes = ['name' => null, 'email' => null, 'password' => null];
+        $user = factory(User::class)->create();
+
+        $this->actingAs($this->authorizedUser())
+            ->post(route('users.store'), $attributes)
+            ->assertSessionHasErrors(['name', 'email', 'password']);
+    }
+
+    /** @test */
     public function name_and_email_is_required_to_update()
     {
         $attributes = ['name' => null, 'email' => null];
@@ -163,6 +217,16 @@ class UserTests extends TestCase
         $this->actingAs($this->authorizedUser())
             ->put(route('users.update', $user->id), $attributes)
             ->assertSessionHasErrors(['name', 'email']);
+    }
+
+    /** @test */
+    public function password_should_be_minimum_8_characters()
+    {
+        $attributes = ['password' => 'short'];
+
+        $this->actingAs($this->authorizedUser())
+            ->post(route('users.store'), $attributes)
+            ->assertSessionHasErrors(['password']);
     }
 
     /** @test */

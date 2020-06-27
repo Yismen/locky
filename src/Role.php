@@ -2,9 +2,10 @@
 
 namespace Dainsys\Locky;
 
-use Illuminate\Database\Eloquent\Model;
+use App\User;
 use Spatie\Permission\Models\Role as ModelsRole;
 
 class Role extends ModelsRole
 {
+    protected $fillable = ['name', 'guard_name'];
 }

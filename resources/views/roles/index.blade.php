@@ -7,7 +7,7 @@
 
             @include('locky::roles.create', ['action' => 'CREATE'])
 
-            <table class="table table table-inverse table-responsive">
+            <table class="table table table-inverse">
                 <thead class="thead-inverse">
                     <tr>
                         <th>Name</th>
@@ -20,9 +20,19 @@
                         @foreach ($roles as $role)
                             <tr>
                                 <td scope="row">{{ $role->name }}</td>
-                                <td>
+                                <td>                                   
+                                    @foreach ($role->users as $user)
+                                        <span class="badge badge-pill badge-primary">
+                                            {{ $user->name }}
+                                        </span>
+                                    @endforeach 
                                 </td>
-                                <td>
+                                <td>                        
+                                    @foreach ($role->permissions as $permission)
+                                        <span class="badge badge-pill badge-warning">
+                                            {{ $permission->name }}
+                                        </span>
+                                    @endforeach
                                 </td>
                                 <td>
                                     <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning">Edit</a>

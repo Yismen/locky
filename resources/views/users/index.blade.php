@@ -5,6 +5,8 @@
         <div class="card-body">
             <h4>Users List</h4>
 
+            @include('locky::users.create', ['action' => 'CREATE'])
+
             <table class="table table table-inverse table-responsive">
                 <thead class="thead-inverse">
                     <tr>
@@ -22,7 +24,7 @@
                                 <td>
                                     @foreach ($user->roles as $role)
                                         <span class="badge badge-pill badge-primary">
-                                            <a href="#">{{ $role->name }}</a>
+                                            {{ $role->name }}
                                         </span>
                                     @endforeach
                                 </td>

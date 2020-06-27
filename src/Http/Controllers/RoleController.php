@@ -2,10 +2,10 @@
 
 namespace Dainsys\Locky\Http\Controllers;
 
+use Dainsys\Locky\Repositories\PermissionsRepository;
 use Dainsys\Locky\Role;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Dainsys\Locky\Repositories\RolesRepository;
+use Dainsys\Locky\Repositories\UsersRepository;
 
 class RoleController extends Controller
 {
@@ -23,9 +23,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles =  RolesRepository::all();
+        $roles = RolesRepository::all();
 
-        return view('locky::roles.index', compact('roles'));
+        return view('locky::roles.index', [
+            'roles' => RolesRepository::all(),
+        ]);
     }
 
     /**
@@ -65,8 +67,8 @@ class RoleController extends Controller
     {
         return view('locky::roles.edit', [
             'role' => $role,
-            'roles' => Role::orderBy('name')
-                ->pluck('name', 'id')
+            'users' => UsersRepository::all(),
+            'permissions' => PermissionsRepository::all(),
         ]);
     }
 
@@ -80,6 +82,8 @@ class RoleController extends Controller
     public function update(Role $role)
     {
         $role->update($this->validateRequest());
+        $role->users()->sync(request('users'));
+        $role->permissions()->sync(request('permissions'));
 
         return redirect()->route('roles.edit', $role->id);
     }
@@ -100,7 +104,9 @@ class RoleController extends Controller
     protected function validateRequest()
     {
         return $this->validate(request(), [
-            'name' => 'required|unique:roles,name,' . optional(request()->route('role'))->id
+            'name' => 'required|unique:roles,name,' . optional(request()->route('role'))->id,
+            'users' => 'array',
+            'permissions' => 'array',
         ]);
     }
 }

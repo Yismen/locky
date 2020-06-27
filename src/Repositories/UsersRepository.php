@@ -9,6 +9,6 @@ class UsersRepository implements ModelRepositoryInterface
     public static function all()
     {
         return User::orderBy('name')
-            ->with('roles')->get();
+            ->with('roles', 'permissions')->get();
     }
 }
