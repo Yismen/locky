@@ -28,7 +28,6 @@ class LockyServiceProvider extends ServiceProvider
     {
         $this->registerPublishables()
             ->bootConfigurations()
-            ->registerPackageComponents()
             ->registerPolicies();
 
         require_once(__DIR__ . '/../helpers/helpers.php');
@@ -63,17 +62,10 @@ class LockyServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../helpers/routes.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'locky');
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        if(config('locky.with_migrations') === true) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        }
         $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
-
-        return $this;
-    }
-
-    protected function registerPackageComponents()
-    {
-        Blade::component('locky-input-label', InputLabel::class);
-        Blade::component('locky-input-field', LockyInputField::class);
-        Blade::component('locky-input-field-addon', InputFieldAddon::class);
 
         return $this;
     }
