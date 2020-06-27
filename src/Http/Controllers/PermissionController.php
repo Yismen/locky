@@ -65,8 +65,8 @@ class PermissionController extends Controller
     {
         return view('locky::permissions.edit', [
             'permission' => $permission,
-            'users' => UsersRepository::all(),
             'roles' => RolesRepository::all(),
+            'users' => UsersRepository::all(),
         ]);
     }
 
