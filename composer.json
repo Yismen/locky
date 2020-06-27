@@ -20,8 +20,15 @@
             "Dainsys\\Locky\\Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Yismen/components.git"
+        }
+    ],
     "require": {
         "php": "^7.0",
+        "dainsys/components": "*",
         "spatie/laravel-permission": "^3.0",
         "laravel/framework": "^7.0"
     },

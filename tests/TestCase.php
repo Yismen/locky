@@ -4,6 +4,7 @@ namespace Dainsys\Locky\Tests;
 
 use App\User;
 use Dainsys\Locky\LockyServiceProvider;
+use Dainsys\Components\ComponentsServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Support\Facades\Route;
 use Laravel\Ui\UiServiceProvider;
@@ -44,6 +45,7 @@ class TestCase extends OrchestraTestCase
             LockyServiceProvider::class,
             PermissionServiceProvider::class,
             UiServiceProvider::class,
+            ComponentsServiceProvider::class,
         ];
     }
 
