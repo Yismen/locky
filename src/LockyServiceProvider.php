@@ -4,7 +4,11 @@ namespace Dainsys\Locky;
 
 use App\User;
 use Dainsys\Locky\Policies\SuperUserPolicy;
+use Dainsys\Locky\View\Components\InputFieldAddon;
+use Dainsys\Locky\View\Components\InputLabel;
+use Dainsys\Locky\View\Components\LockyInputField;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 
 class LockyServiceProvider extends ServiceProvider
@@ -24,8 +28,8 @@ class LockyServiceProvider extends ServiceProvider
     {
         $this->registerPublishables()
             ->bootConfigurations()
+            ->registerPackageComponents()
             ->registerPolicies();
-
 
         require_once(__DIR__ . '/../helpers/helpers.php');
     }
@@ -61,6 +65,15 @@ class LockyServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'locky');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
+
+        return $this;
+    }
+
+    protected function registerPackageComponents()
+    {
+        Blade::component('locky-input-label', InputLabel::class);
+        Blade::component('locky-input-field', LockyInputField::class);
+        Blade::component('locky-input-field-addon', InputFieldAddon::class);
 
         return $this;
     }

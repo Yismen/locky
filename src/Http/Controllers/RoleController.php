@@ -104,7 +104,7 @@ class RoleController extends Controller
     protected function validateRequest()
     {
         return $this->validate(request(), [
-            'name' => 'required|unique:roles,name,' . optional(request()->route('role'))->id,
+            'name' => 'required|min:3|unique:roles,name,' . optional(request()->route('role'))->id,
             'users' => 'array',
             'permissions' => 'array',
         ]);

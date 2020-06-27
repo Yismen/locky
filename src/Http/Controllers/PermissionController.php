@@ -102,7 +102,7 @@ class PermissionController extends Controller
     protected function validateRequest()
     {
         return $this->validate(request(), [
-            'name' => 'required|unique:permissions,name,' . optional(request()->route('permission'))->id,
+            'name' => 'required|min:8|unique:permissions,name,' . optional(request()->route('permission'))->id,
             'users' => 'array',
             'roles' => 'array',
         ]);

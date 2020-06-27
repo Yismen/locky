@@ -1,29 +1,31 @@
 <div class="row">
     <div class="col-sm-12 {{ $action == 'CREATE' ? 'col-lg-4' : 'col-lg-6' }}">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text"
-                class="form-control" name="name" id="name" aria-describedby="name"
-                value="{{ old('name') ?? $user->name }}">
-          </div>
+            <x-locky-input-field 
+                :field-value="old('name', $user->name)" 
+                field-name="name" 
+                label-name="Name"
+            />
+        </div>
     </div>
     <div class="col-sm-12 {{ $action == 'CREATE' ? 'col-lg-4' : 'col-lg-6' }}">
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email"
-                class="form-control" name="email" id="email" aria-describedby="email"
-                value="{{ old('email') ?? $user->email }}">
-                {{--  <small id="email" class="form-text text-muted">Help text</small>  --}}
+            <x-locky-input-field 
+                :field-value="old('email', $user->email)" 
+                field-name="email" 
+                label-name="Email"
+            />
         </div>
     </div>
     @if ($action == 'CREATE')
         <div class="col-sm-12 col-lg-4">
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="text"
-                    class="form-control" name="password" id="password" aria-describedby="password"
-                    value="{{ old('password') ?? $user->password }}">
-                    {{--  <small id="email" class="form-text text-muted">Help text</small>  --}}
+                <x-locky-input-field 
+                    type="password"
+                    :field-value="old('password', $user->password)" 
+                    field-name="password" 
+                    label-name="Password"
+                />
             </div>
         </div>
     @endif
