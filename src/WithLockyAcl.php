@@ -5,7 +5,7 @@ namespace Dainsys\Locky;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 
-trait Lockyable
+trait WithLockyAcl
 {
     use HasRoles;
     use SoftDeletes;

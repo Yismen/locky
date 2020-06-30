@@ -4,21 +4,21 @@ A wrapper for Spatie/Laravel-Permission:
 * Add the following key to the `composer.json` file in your app's root:
 ````javascript
 "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/Yismen/locky.git"
-        }
-    ]
+    {
+        "type": "git",
+        "url": "https://github.com/Yismen/locky.git"
+    }
+]
 ````
 * Install with `composer` by runining the command `composer require dainsys/locky`
-* Add the `Dainsys\Locky\Lockyable;` to your `User` model(s);
+* Add the `Dainsys\Locky\WithLockyAcl;` to your `User` model(s);
 ```javascript
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Dainsys\Locky\Lockyable;
+use Dainsys\Locky\WithLockyAcl;
 
 class User extends Authenticatable
 {
-    use Lockyable;
+    use WithLockyAcl;
 }
 ```
 * Set you `LOCKY_SUPER_USER_EMAIL=super.user@email-example.com` in the .env file.
