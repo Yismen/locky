@@ -40,4 +40,5 @@ class MyController extends Controller
     }
 }
 ```
+- Please read Larave Authorization's documentations at https://laravel.com/docs/7.x/authorization
  
