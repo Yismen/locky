@@ -1,6 +1,15 @@
 # Dainsys Locky  
 A wrapper for Spatie/Laravel-Permission: 
 ## Installation
+* Add the following key to the `composer.json` file in your app's root:
+````javascript
+"repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Yismen/locky.git"
+        }
+    ]
+````
 * Install with `composer` by runining the command `composer require dainsys/locky`
 * Add the `Dainsys\Locky\Lockyable;` to your `User` model(s);
 ```javascript
