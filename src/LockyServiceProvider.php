@@ -60,9 +60,9 @@ class LockyServiceProvider extends ServiceProvider
 
     protected function bootConfigurations()
     {
-        $this->loadRoutesFrom(__DIR__ . '/../helpers/routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'locky');
-        if(config('locky.with_migrations') === true) {
+        if (config('locky.with_migrations') === true) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
         $this->loadFactoriesFrom(__DIR__ . '/../database/factories');

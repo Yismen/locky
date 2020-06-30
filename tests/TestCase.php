@@ -20,9 +20,9 @@ class TestCase extends OrchestraTestCase
         $this->loadLaravelMigrations();
         $this->artisan('migrate');
 
-        Route::get('/login')->name('login');
-        Route::post('/logout')->name('logout');
-        Route::get('/password/reset/{token}')->name('password.reset');
+        // Route::get('/login')->name('login');
+        // Route::post('/logout')->name('logout');
+        // Route::get('/password/reset/{token}')->name('password.reset');
     }
 
     /**
@@ -42,9 +42,9 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app): array
     {
         return [
+            UiServiceProvider::class,
             LockyServiceProvider::class,
             PermissionServiceProvider::class,
-            UiServiceProvider::class,
             ComponentsServiceProvider::class,
         ];
     }
