@@ -7,6 +7,10 @@ A wrapper for Spatie/Laravel-Permission:
     {
         "type": "git",
         "url": "https://github.com/Yismen/locky.git"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/Yismen/laravel-components.git"
     }
 ]
 ````
