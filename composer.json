@@ -23,7 +23,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/Yismen/components.git"
+            "url": "https://github.com/Yismen/laravel-components.git"
         }
     ],
     "require": {

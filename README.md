@@ -7,6 +7,10 @@ A laravel UI wrapper for spatie/laravel-permission with Bootstrap 4!
     {
         "type": "git",
         "url": "https://github.com/Yismen/locky.git"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/Yismen/laravel-components.git"
     }
 ]
 ````
@@ -40,4 +44,5 @@ class MyController extends Controller
     }
 }
 ```
+- Please read Larave Authorization's documentations at https://laravel.com/docs/7.x/authorization
  
