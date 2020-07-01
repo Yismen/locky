@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12 {{ $action == 'CREATE' ? 'col-lg-4' : 'col-lg-6' }}">
         <div class="form-group">
-            <x-locky-input-field 
+            <x-input-field 
                 :field-value="old('name', $user->name)" 
                 field-name="name" 
                 label-name="Name"
@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12 {{ $action == 'CREATE' ? 'col-lg-4' : 'col-lg-6' }}">
         <div class="form-group">
-            <x-locky-input-field 
+            <x-input-field 
                 :field-value="old('email', $user->email)" 
                 field-name="email" 
                 label-name="Email"
@@ -20,7 +20,7 @@
     @if ($action == 'CREATE')
         <div class="col-sm-12 col-lg-4">
             <div class="form-group">
-                <x-locky-input-field 
+                <x-input-field 
                     type="password"
                     :field-value="old('password', $user->password)" 
                     field-name="password" 
