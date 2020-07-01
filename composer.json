@@ -10,22 +10,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "Dainsys\\Locky\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Dainsys\\Locky\\Tests\\": "tests/"
-        }
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/Yismen/laravel-components.git"
-        }
-    ],
     "require": {
         "php": "^7.0",
         "laravel/ui": "^2.0",
@@ -35,6 +19,16 @@
     },
     "require-dev": {
         "orchestra/testbench": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dainsys\\Locky\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dainsys\\Locky\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "laravel": {
