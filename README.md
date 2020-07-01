@@ -1,5 +1,5 @@
 # Dainsys Locky  
-A wrapper for Spatie/Laravel-Permission: 
+A laravel UI wrapper for spatie/laravel-permission with Bootstrap 4!
 ## Installation
 * Add the following key to the `composer.json` file in your app's root:
 ````javascript

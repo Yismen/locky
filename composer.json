@@ -1,6 +1,6 @@
 {
     "name": "dainsys/locky",
-    "description": "Security package for Dainsys",
+    "description": "A laravel UI wrapper for spatie/laravel-permission with Bootstrap 4!",
     "type": "library",
     "license": "MIT",
     "authors": [
