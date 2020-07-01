@@ -10,11 +10,6 @@ return [
      */
     'with_migrations' => true,
     /**
-     * With this setup we define if laravel/ui Auth::rotues() will be made available. 
-     * Change to false if you are doing your own implementation.
-     */
-    'with_auth_routes' => true,
-    /**
      * Middlewares: array of middlewares to be applyied to package's routes. 
      */
     'middlewares' => ['web', 'auth'],

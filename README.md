@@ -1,19 +1,6 @@
 # Dainsys Locky  
 A laravel UI wrapper for spatie/laravel-permission with Bootstrap 4!
 ## Installation
-* Add the following key to the `composer.json` file in your app's root:
-````javascript
-"repositories": [
-    {
-        "type": "git",
-        "url": "https://github.com/Yismen/locky.git"
-    },
-    {
-        "type": "git",
-        "url": "https://github.com/Yismen/laravel-components.git"
-    }
-]
-````
 * Install with `composer` by runining the command `composer require dainsys/locky`
 * Add the `Dainsys\Locky\WithLockyAcl;` to your `User` model(s);
 ```javascript
@@ -26,6 +13,7 @@ class User extends Authenticatable
 }
 ```
 * Set you `LOCKY_SUPER_USER_EMAIL=super.user@email-example.com` in the .env file.
+* If you havent published the `laravel/ui` scafold, do so by running the `php artisan ui:auth`.
 * Views:
 - The package ships with it's own views, therefore you MUST publish the package public assets by running `php artisan vendor:publish --tag=locky-public`. However, this is not necessary if you are planning to use your views. In this case you can run `php artisan vendor:publish --tag=locky-views` and make them extends your own layout view. 
 * Migrations:

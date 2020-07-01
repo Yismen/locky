@@ -5,6 +5,7 @@ namespace Dainsys\Locky\Tests;
 use App\User;
 use Dainsys\Locky\LockyServiceProvider;
 use Dainsys\Components\ComponentsServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Support\Facades\Route;
 use Laravel\Ui\UiServiceProvider;
@@ -20,9 +21,7 @@ class TestCase extends OrchestraTestCase
         $this->loadLaravelMigrations();
         $this->artisan('migrate');
 
-        // Route::get('/login')->name('login');
-        // Route::post('/logout')->name('logout');
-        // Route::get('/password/reset/{token}')->name('password.reset');
+        Auth::routes();
     }
 
     /**
