@@ -1,7 +1,7 @@
 <div class="row justify-content-around">
     <div class="col-sm-8">
         <div class="form-group">
-            <x-input-field-addon
+            <x-dc-input-field-addon
                 type="text"
                 :field-value="old('name', $role->name)" 
                 field-name="name" 

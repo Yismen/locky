@@ -33,4 +33,9 @@ class MyController extends Controller
 }
 ```
 - Please read Larave Authorization's documentations at https://laravel.com/docs/7.x/authorization
+### Dependencies
+* Dainsys Components: https://packagist.org/packages/dainsys/components
+* Laravel Ui: https://laravel.com/docs/7.x/authorization
+* Spatie Permission: https://docs.spatie.be/laravel-permission/v3/introduction/
+
  

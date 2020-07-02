@@ -7,7 +7,7 @@
 
             @include('locky::users.create', ['action' => 'CREATE'])
 
-            <table class="table table table-inverse table-responsive">
+            <table class="table table table-inverse">
                 <thead class="thead-inverse">
                     <tr>
                         <th>Name</th>

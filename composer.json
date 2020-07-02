@@ -13,6 +13,7 @@
     "require": {
         "php": "^7.0",
         "laravel/ui": "^2.0",
+        "dainsys/components": "^1.0",
         "spatie/laravel-permission": "^3.0",
         "laravel/framework": "^7.0"
     },
