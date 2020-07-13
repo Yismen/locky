@@ -4,6 +4,8 @@
             <x-dc-input-field-addon
                 type="text"
                 :field-value="old('name', $role->name)" 
+                btn-class="{{ $action == 'UPDATE' ? 'btn-warning': 'btn-primary' }}"
+                button-action="{{ $action == 'UPDATE' ? 'UPDATE' : 'CREATE' }}"
                 field-name="name" 
                 label-name="Role Name:"
             />

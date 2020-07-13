@@ -44,21 +44,7 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
-                            @can('view', App\User::class)
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
-                                </li>
-                            @endcan
-                            @can('view', Dainsys\Locky\Role::class)
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
-                                </li>
-                            @endcan
-                            @can('view', Dainsys\Locky\Permission::class)
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('permissions.index') }}">{{ __('Permissions') }}</a>
-                                </li>
-                            @endcan
+                            @include('locky::_nav-links')
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

@@ -5,6 +5,8 @@
                 type="text"
                 :field-value="old('name', $permission->name)" 
                 field-name="name" 
+                btn-class="{{ $action == 'UPDATE' ? 'btn-warning': 'btn-primary' }}"
+                button-action="{{ $action == 'UPDATE' ? 'UPDATE' : 'CREATE' }}"
                 label-name="Permission Name:"
             />
         </div>
