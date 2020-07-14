@@ -5,6 +5,7 @@ namespace Dainsys\Locky;
 use App\User;
 use Dainsys\Locky\Policies\SuperUserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class LockyServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ class LockyServiceProvider extends ServiceProvider
             ->registerPolicies();
 
         require_once(__DIR__ . '/../helpers/helpers.php');
+
+        Gate::define('is-super-user', function ($user) {
+            return $user->email === config('locky.super_user_email');
+        });
     }
 
     public function register()
