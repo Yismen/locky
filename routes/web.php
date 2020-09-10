@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(config('locky.middlewares'))
     ->namespace('\Dainsys\Locky\Http\Controllers')
-    ->prefix('admin')
+    ->prefix('locky')
     ->group(function () {
         Route::post('users/{user}/restore', 'UserController@restore')->name('users.restore');
         Route::resource('users', 'UserController')->except('create');
