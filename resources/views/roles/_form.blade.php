@@ -5,9 +5,9 @@
                 type="text"
                 :field-value="old('name', $role->name)" 
                 btn-class="{{ $action == 'UPDATE' ? 'btn-warning': 'btn-primary' }}"
-                button-action="{{ $action == 'UPDATE' ? 'UPDATE' : 'CREATE' }}"
+                button-action="{{ $action == 'UPDATE' ? __('locky::messages.update') : __('locky::messages.create') }}"
                 field-name="name" 
-                label-name="Role Name:"
+                label-name="{{ __('locky::messages.role') }} {{ __('locky::messages.name') }}:"
             />
         </div>
     </div>    
@@ -16,7 +16,7 @@
 @if ($action == 'UPDATE')
     <div class="row">
         <div class="col-sm-6">
-            <h5>Users</h5>           
+            <h5>{{ __('locky::messages.user') }}s</h5>           
         
             @foreach ($users as $user)
                 <div class="form-check">
@@ -36,7 +36,7 @@
             @endforeach
         </div>
         <div class="col-sm-6">
-            <h5>Permissions</h5>           
+            <h5>{{ __('locky::messages.permission') }}s</h5>           
         
             @foreach ($permissions as $permission)
                 <div class="form-check">

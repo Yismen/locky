@@ -3,17 +3,17 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h4>Users List</h4>
+            <h4>{{ __('locky::messages.users_list') }}</h4>
 
             @include('locky::users.create', ['action' => 'CREATE'])
 
             <table class="table table table-inverse">
                 <thead class="thead-inverse">
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Roles</th>
-                        <th>Actions</th>
+                        <th>{{ __('locky::messages.name') }}</th>
+                        <th>{{ __('locky::messages.email') }}</th>
+                        <th>{{ __('locky::messages.roles') }}</th>
+                        <th>{{ __('locky::messages.actions') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -29,7 +29,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">{{ __('locky::messages.edit') }}</a>
                                 </td>
                             </tr>
                         @endforeach

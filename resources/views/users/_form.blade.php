@@ -4,7 +4,7 @@
             <x-dc-input-field 
                 :field-value="old('name', $user->name)" 
                 field-name="name" 
-                label-name="Name"
+                label-name="{{ __('locky::messages.name') }}"
             />
         </div>
     </div>
@@ -13,7 +13,7 @@
             <x-dc-input-field 
                 :field-value="old('email', $user->email)" 
                 field-name="email" 
-                label-name="Email"
+                label-name="{{ __('locky::messages.email') }}"
             />
         </div>
     </div>
@@ -24,20 +24,20 @@
                     type="password"
                     :field-value="old('password', $user->password)" 
                     field-name="password" 
-                    label-name="Password"
+                    label-name="{{ __('locky::messages.password') }}"
                 />
             </div>
         </div>
     @endif
     <div class="col-sm-12 mb-2">        
         <div class="input-group-append">
-            <button class="btn btn-{{ $action == 'CREATE' ? 'primary' : 'warning' }}" type="submit" id="button-addon2">{{ $action }}</button>
+            <button class="btn btn-{{ $action == 'CREATE' ? 'primary' : 'warning' }}" type="submit" id="button-addon2">{{ $action == 'UPDATE' ? __('locky::messages.update') : __('locky::messages.create') }}</button>
         </div>
     </div>
     
 @if ($action == 'UPDATE')
     <div class="col-sm-12 col-lg-6">
-        <h5>Roles</h5>
+        <h5>{{ __('locky::messages.role') }}s</h5>
         
         @foreach ($roles as $role)
             <div class="form-check">

@@ -47,15 +47,11 @@ class LockyServiceProvider extends ServiceProvider
         ], 'locky-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/dainsys/locky')
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/locky')
         ], 'locky-views');
 
         $this->publishes([
-            __DIR__ . '/../public/vendor/locky' => public_path('vendor/dainsys/locky'),
-        ], 'locky-public');
-
-        $this->publishes([
-            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/dainsys/locky')
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/locky')
         ], 'locky-lang');
 
         return $this;

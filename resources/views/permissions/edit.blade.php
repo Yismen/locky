@@ -4,15 +4,15 @@
     <div class="card">
         <div class="card-body">
             <h4>
-                Edit Permission {{ $permission->name }}
-                <a href="{{ route('permissions.index') }}" class="float-right">Permissions List</a>
+                {{ __('locky::messages.edit') }} {{ __('locky::messages.permission') }} {{ $permission->name }}
+                <a href="{{ route('permissions.index') }}" class="float-right">{{ __('locky::messages.permissions_list') }}</a>
             </h4>
 
             <form action="{{ route('permissions.update', $permission->id) }}" method="post">
                 @csrf
                 @method('PUT')
                 
-                @include('locky::permissions._form', ['action' => 'UPDATE'])
+                @include('locky::permissions._form', ['action' => "UPDATE"])
             </form>
             
         </div>

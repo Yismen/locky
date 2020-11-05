@@ -4,8 +4,8 @@
     <div class="card">
         <div class="card-body">
             <h4>
-                Edit User {{ $user->name }}
-                <a href="{{ route('users.index') }}" class="float-right">Users List</a>
+                {{ __('locky::messages.edit') }} {{ __('locky::messages.user') }} {{ $user->name }}
+                <a href="{{ route('users.index') }}" class="float-right">{{ __('locky::messages.users_list') }}</a>
             </h4>
 
             <form action="{{ route('users.update', $user->id) }}" method="post">

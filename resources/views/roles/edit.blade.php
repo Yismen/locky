@@ -4,8 +4,8 @@
     <div class="card">
         <div class="card-body">
             <h4>
-                Edit Role {{ $role->name }}
-                <a href="{{ route('roles.index') }}" class="float-right">Roles List</a>
+                {{ __('locky::messages.edit') }} {{ __('locky::messages.role') }} {{ $role->name }}
+                <a href="{{ route('roles.index') }}" class="float-right">{{ __('locky::messages.roles_list') }}</a>
             </h4>
 
             <form action="{{ route('roles.update', $role->id) }}" method="post">
