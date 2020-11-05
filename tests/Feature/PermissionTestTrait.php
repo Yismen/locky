@@ -1,15 +1,16 @@
 <?php
 
-namespace Dainsys\Locky\Tests;
+namespace Dainsys\Locky\Tests\Feature;
 
-use App\User;
 use Dainsys\Locky\Permission;
 use Dainsys\Locky\Repositories\PermissionsRepository;
 use Dainsys\Locky\Repositories\RolesRepository;
 use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Role;
+use Dainsys\Locky\Tests\TestCase;
+use App\User;
 
-class PermissionTests extends TestCase
+trait PermissionTestTrait
 {
     /** ===========================================================
      * Authentication and Authorization Tests
@@ -65,20 +66,15 @@ class PermissionTests extends TestCase
             ->assertForbidden();
     }
 
-    /** ======================================================================
-     * Routes Tests
-     * =======================================================================
-     */
-
     /** @test */
     public function permission_can_see_permissions()
     {
-        factory(Permission::class, 10)->create();
+        factory(Permission::class, 2)->create();
 
         $this->actingAs($this->authorizedUser())->get(route('permissions.index'))
             ->assertOk()
             ->assertViewIs('locky::permissions.index')
-            ->assertViewHas('permissions', PermissionsRepository::all());
+            ->assertViewHas('permissions', Permission::orderBy('name')->with('roles', 'users')->get());
     }
 
     /** @test */

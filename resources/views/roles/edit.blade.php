@@ -1,4 +1,4 @@
-@extends('locky::app')
+@extends(config('app.env') == "testing" ? 'locky::app' : 'layouts.app')
 
 @section('content')
     <div class="card">

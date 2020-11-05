@@ -4,6 +4,7 @@ namespace Dainsys\Locky;
 
 use App\User;
 use Dainsys\Locky\Policies\SuperUserPolicy;
+use Dainsys\Locky\Tests\Mocks\UserMock;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,8 +26,6 @@ class LockyServiceProvider extends ServiceProvider
         $this->registerPublishables()
             ->bootConfigurations()
             ->registerPolicies();
-
-        require_once(__DIR__ . '/../helpers/helpers.php');
 
         Gate::define('is-super-user', function ($user) {
             return $user->email === config('locky.super_user_email');
@@ -55,6 +54,10 @@ class LockyServiceProvider extends ServiceProvider
             __DIR__ . '/../public/vendor/locky' => public_path('vendor/dainsys/locky'),
         ], 'locky-public');
 
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => resource_path('lang/vendor/dainsys/locky')
+        ], 'locky-lang');
+
         return $this;
     }
 
@@ -62,6 +65,7 @@ class LockyServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'locky');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'locky');
         if (config('locky.with_migrations') === true) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }

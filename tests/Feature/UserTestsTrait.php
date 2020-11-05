@@ -1,6 +1,6 @@
 <?php
 
-namespace Dainsys\Locky\Tests;
+namespace Dainsys\Locky\Tests\Feature;
 
 use App\User;
 use Dainsys\Locky\Role;
@@ -11,7 +11,7 @@ use Dainsys\Locky\Repositories\RolesRepository;
 use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Notifications\UserCreatedNotification;
 
-class UserTests extends TestCase
+trait UserTestsTrait
 {
     /** ===========================================================
      * Authentication and Authorization Tests

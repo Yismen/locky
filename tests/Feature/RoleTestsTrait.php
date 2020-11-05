@@ -1,6 +1,6 @@
 <?php
 
-namespace Dainsys\Locky\Tests;
+namespace Dainsys\Locky\Tests\Feature;
 
 use App\User;
 use Dainsys\Locky\Permission;
@@ -9,7 +9,7 @@ use Dainsys\Locky\Repositories\RolesRepository;
 use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Role;
 
-class RoleTests extends TestCase
+trait RoleTestsTrait
 {
     /** ===========================================================
      * Authentication and Authorization Tests
@@ -127,7 +127,7 @@ class RoleTests extends TestCase
     }
 
     /** @test */
-    public function users_and_permissions_can_be_synced_on_update()
+    public function users_and_permissions_can_be_synced_on_update_role()
     {
         $this->withoutExceptionHandling();
         $role = factory(Role::class)->create();
@@ -161,14 +161,14 @@ class RoleTests extends TestCase
      */
 
     /** @test */
-    public function a_name_is_required_to_create()
+    public function a_name_is_required_to_create_a_role()
     {
         $this->actingAs($this->authorizedUser())->post(route('roles.store'), ['name' => null])
             ->assertSessionHasErrors('name');
     }
 
     /** @test */
-    public function a_name_is_required_to_update()
+    public function a_name_is_required_to_updatea_role()
     {
         $role = $this->role();
         $this->actingAs($this->authorizedUser())->put(route('roles.update', $role->id), ['name' => null])
@@ -176,7 +176,7 @@ class RoleTests extends TestCase
     }
 
     /** @test */
-    public function a_name_must_be_unique_to_create()
+    public function a_name_must_be_unique_to_create_a_role()
     {
         $role = factory(Role::class)->create();
 
@@ -185,7 +185,7 @@ class RoleTests extends TestCase
     }
 
     /** @test */
-    public function a_name_must_be_unique_to_update()
+    public function a_name_must_be_unique_to_update_a_role()
     {
         $role = $this->role();
         $secondRole = $this->role();

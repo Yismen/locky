@@ -1,4 +1,4 @@
-@extends('locky::app')
+@extends(config('app.env') == "testing" ? 'locky::app' : 'layouts.app')
 
 @section('content')
     <div class="card">
@@ -12,7 +12,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Users</th>
-                        <th>Permissions</th>
+                        <th>Roles</th>
                         <th>Actions</th>
                     </tr>
                     </thead>

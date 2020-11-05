@@ -2,9 +2,9 @@
 
 namespace Dainsys\Locky\Tests;
 
-use App\User;
 use Dainsys\Locky\LockyServiceProvider;
 use Dainsys\Components\ComponentsServiceProvider;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +17,7 @@ class TestCase extends OrchestraTestCase
     {
         parent::setUp();
 
-        $this->withFactories(realpath(dirname(__DIR__) . '/../../database/factories'));
+        $this->withFactories(realpath(dirname(__DIR__) . '/../database/factories'));
         $this->loadLaravelMigrations();
         $this->artisan('migrate');
 
@@ -42,9 +42,9 @@ class TestCase extends OrchestraTestCase
     {
         return [
             UiServiceProvider::class,
-            LockyServiceProvider::class,
             PermissionServiceProvider::class,
             ComponentsServiceProvider::class,
+            LockyServiceProvider::class,
         ];
     }
 

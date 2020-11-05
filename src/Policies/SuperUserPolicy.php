@@ -2,8 +2,8 @@
 
 namespace Dainsys\Locky\Policies;
 
-use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\User;
 
 class SuperUserPolicy
 {

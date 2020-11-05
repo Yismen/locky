@@ -27,7 +27,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Dainsys\\Locky\\Tests\\": "tests/"
+            "Dainsys\\Locky\\Tests\\": "tests/",
+            "App\\": "tests/app/"
         }
     },
     "extra": {
