@@ -8,9 +8,9 @@ Route::middleware(config('locky.middlewares'))
     ->prefix('locky')
     ->group(function () {
         Route::post('users/{user}/restore', 'UserController@restore')->name('users.restore');
-        Route::resource('users', 'UserController')->except('create');
+        Route::resource('users', 'UserController')->except('create', 'show', 'destroy');
 
-        Route::resource('roles', 'RoleController')->except('create');
+        Route::resource('roles', 'RoleController')->except('create', 'show', 'destroy');
 
-        Route::resource('permissions', 'PermissionController')->except('create');
+        Route::resource('permissions', 'PermissionController')->except('create', 'show', 'destroy');
     });

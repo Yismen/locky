@@ -25,9 +25,6 @@ trait PermissionTestTrait
         $this->get(route('permissions.index'))
             ->assertRedirect(route('login'));
 
-        $this->get(route('permissions.show', $permission->id))
-            ->assertRedirect(route('login'));
-
         $this->post(route('permissions.store', []))
             ->assertRedirect(route('login'));
 
@@ -35,9 +32,6 @@ trait PermissionTestTrait
             ->assertRedirect(route('login'));
 
         $this->patch(route('permissions.update', $permission->id))
-            ->assertRedirect(route('login'));
-
-        $this->delete(route('permissions.update', $permission->id))
             ->assertRedirect(route('login'));
     }
 
@@ -50,9 +44,6 @@ trait PermissionTestTrait
         $this->actingAs($user)->get(route('permissions.index'))
             ->assertForbidden();
 
-        $this->actingAs($user)->get(route('permissions.show', $permission->id))
-            ->assertForbidden();
-
         $this->actingAs($user)->post(route('permissions.store'))
             ->assertForbidden();
 
@@ -60,9 +51,6 @@ trait PermissionTestTrait
             ->assertForbidden();
 
         $this->actingAs($user)->patch(route('permissions.update', $permission->id))
-            ->assertForbidden();
-
-        $this->actingAs($user)->delete(route('permissions.destroy', $permission->id))
             ->assertForbidden();
     }
 
@@ -75,16 +63,6 @@ trait PermissionTestTrait
             ->assertOk()
             ->assertViewIs('locky::permissions.index')
             ->assertViewHas('permissions', Permission::orderBy('name')->with('roles', 'users')->get());
-    }
-
-    /** @test */
-    public function permission_can_see_a_single_permissions()
-    {
-        $permission = factory(Permission::class)->create();
-
-        $this->actingAs($this->authorizedUser())->get(route('permissions.show', $permission->id))
-            ->assertViewIs('locky::permissions.show')
-            ->assertViewHas('permission', $permission);
     }
 
     /** @test */
@@ -139,17 +117,6 @@ trait PermissionTestTrait
         $this->actingAs($this->authorizedUser())->put(route('permissions.update', $permission->id), $attributes);
         $this->assertEquals($users, $permission->users()->pluck('id')->toArray());
         $this->assertEquals($roles, $permission->roles()->pluck('id')->toArray());
-    }
-
-    /** @test */
-    public function permission_can_be_deleted()
-    {
-        $permission = factory(Permission::class)->create();
-
-        $this->actingAs($this->authorizedUser())->delete(route('permissions.destroy', $permission->id))
-            ->assertRedirect(route('permissions.index'));
-
-        $this->assertDeleted('permissions', ['name' => $permission->name]);
     }
 
     /** ===============================================================================

@@ -24,9 +24,6 @@ trait RoleTestsTrait
         $this->get(route('roles.index'))
             ->assertRedirect(route('login'));
 
-        $this->get(route('roles.show', $role->id))
-            ->assertRedirect(route('login'));
-
         $this->post(route('roles.store', []))
             ->assertRedirect(route('login'));
 
@@ -34,9 +31,6 @@ trait RoleTestsTrait
             ->assertRedirect(route('login'));
 
         $this->patch(route('roles.update', $role->id))
-            ->assertRedirect(route('login'));
-
-        $this->delete(route('roles.update', $role->id))
             ->assertRedirect(route('login'));
     }
 
@@ -49,9 +43,6 @@ trait RoleTestsTrait
         $this->actingAs($user)->get(route('roles.index'))
             ->assertForbidden();
 
-        $this->actingAs($user)->get(route('roles.show', $role->id))
-            ->assertForbidden();
-
         $this->actingAs($user)->post(route('roles.store'))
             ->assertForbidden();
 
@@ -59,9 +50,6 @@ trait RoleTestsTrait
             ->assertForbidden();
 
         $this->actingAs($user)->patch(route('roles.update', $role->id))
-            ->assertForbidden();
-
-        $this->actingAs($user)->delete(route('roles.destroy', $role->id))
             ->assertForbidden();
     }
 
@@ -79,16 +67,6 @@ trait RoleTestsTrait
             ->assertOk()
             ->assertViewIs('locky::roles.index')
             ->assertViewHas('roles', RolesRepository::all());
-    }
-
-    /** @test */
-    public function role_can_see_a_single_roles()
-    {
-        $role = factory(Role::class)->create();
-
-        $this->actingAs($this->authorizedUser())->get(route('roles.show', $role->id))
-            ->assertViewIs('locky::roles.show')
-            ->assertViewHas('role', $role);
     }
 
     /** @test */
@@ -142,17 +120,6 @@ trait RoleTestsTrait
         $this->actingAs($this->authorizedUser())->put(route('roles.update', $role->id), $attributes);
         $this->assertEquals($users, $role->users()->pluck('id')->toArray());
         $this->assertEquals($permissions, $role->permissions()->pluck('id')->toArray());
-    }
-
-    /** @test */
-    public function role_can_be_deleted()
-    {
-        $role = factory(Role::class)->create();
-
-        $this->actingAs($this->authorizedUser())->delete(route('roles.destroy', $role->id))
-            ->assertRedirect(route('roles.index'));
-
-        $this->assertDeleted('roles', ['name' => $role->name]);
     }
 
     /** ===============================================================================

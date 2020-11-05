@@ -31,19 +31,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        return view('locky::users.show', [
-            'user' => $user
-        ]);
-    }
-
-    /**
      * Created a new resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -92,19 +79,6 @@ class UserController extends Controller
         $user->roles()->sync((array) request('roles'));
 
         return redirect()->route('users.edit', $user->id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        $user->delete();
-
-        return redirect()->route('users.index');
     }
 
     /**

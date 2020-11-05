@@ -43,19 +43,6 @@ class PermissionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
-    {
-        return view('locky::permissions.show', [
-            'permission' => $permission
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Permission  $permission
@@ -84,19 +71,6 @@ class PermissionController extends Controller
         $permission->roles()->sync(request('roles'));
 
         return redirect()->route('permissions.edit', $permission->id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
-    {
-        $permission->delete();
-
-        return redirect()->route('permissions.index');
     }
 
     protected function validateRequest()

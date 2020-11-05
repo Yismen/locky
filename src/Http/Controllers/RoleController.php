@@ -45,19 +45,6 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
-    {
-        return view('locky::roles.show', [
-            'role' => $role
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Role  $role
@@ -86,19 +73,6 @@ class RoleController extends Controller
         $role->permissions()->sync(request('permissions'));
 
         return redirect()->route('roles.edit', $role->id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
-    {
-        $role->delete();
-
-        return redirect()->route('roles.index');
     }
 
     protected function validateRequest()

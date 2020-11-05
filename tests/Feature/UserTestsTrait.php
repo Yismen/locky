@@ -26,9 +26,6 @@ trait UserTestsTrait
         $this->get(route('users.index'))
             ->assertRedirect(route('login'));
 
-        $this->get(route('users.show', $user->id))
-            ->assertRedirect(route('login'));
-
         $this->post(route('users.store', []))
             ->assertRedirect(route('login'));
 
@@ -36,9 +33,6 @@ trait UserTestsTrait
             ->assertRedirect(route('login'));
 
         $this->patch(route('users.update', $user->id))
-            ->assertRedirect(route('login'));
-
-        $this->delete(route('users.update', $user->id))
             ->assertRedirect(route('login'));
 
         $this->post(route('users.restore', $user->id))
@@ -56,16 +50,10 @@ trait UserTestsTrait
         $this->actingAs($user)->post(route('users.store'))
             ->assertForbidden();
 
-        $this->actingAs($user)->get(route('users.show', $user->id))
-            ->assertForbidden();
-
         $this->actingAs($user)->get(route('users.edit', $user->id))
             ->assertForbidden();
 
         $this->actingAs($user)->patch(route('users.update', $user->id))
-            ->assertForbidden();
-
-        $this->actingAs($user)->delete(route('users.destroy', $user->id))
             ->assertForbidden();
 
         $this->actingAs($user)->post(route('users.restore', $user->id))
@@ -86,17 +74,6 @@ trait UserTestsTrait
             ->assertOk()
             ->assertViewIs('locky::users.index')
             ->assertViewHas('users', UsersRepository::all());
-    }
-
-    /** @test */
-    public function user_can_see_a_single_users()
-    {
-        $this->withoutExceptionHandling();
-        $user = factory(User::class)->create();
-
-        $this->actingAs($this->authorizedUser())->get(route('users.show', $user->id))
-            ->assertViewIs('locky::users.show')
-            ->assertViewHas('user', $user);
     }
 
     /** @test */
@@ -156,17 +133,6 @@ trait UserTestsTrait
 
         $this->actingAs($this->authorizedUser())->put(route('users.update', $user->id), $attributes);
         $this->assertEquals($roles, $user->roles()->pluck('id')->toArray());
-    }
-
-    /** @test */
-    public function user_can_be_deleted()
-    {
-        $user = factory(User::class)->create();
-
-        $this->actingAs($this->authorizedUser())->delete(route('users.destroy', $user->id))
-            ->assertRedirect(route('users.index'));
-
-        $this->assertSoftDeleted('users', ['name' => $user->name, 'email' => $user->email]);
     }
 
     /** @test */
