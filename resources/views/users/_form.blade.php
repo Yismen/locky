@@ -34,27 +34,36 @@
             <button class="btn btn-{{ $action == 'CREATE' ? 'primary' : 'warning' }}" type="submit" id="button-addon2">{{ $action == 'UPDATE' ? __('locky::messages.update') : __('locky::messages.create') }}</button>
         </div>
     </div>
+</div>
+
+
     
 @if ($action == 'UPDATE')
-    <div class="col-sm-12 col-lg-6">
-        <h5>{{ __('locky::messages.role') }}s</h5>
-        
-        @foreach ($roles as $role)
-            <div class="form-check">
-                <label 
-                    class="form-check-label {{ $user->hasRole($role->name) ? 'bg-success px-1 text-white' : '' }}" 
-                >
-                    <input type="checkbox" 
-                        class="form-check-input" 
-                        name="roles[]" 
-                        id="" 
-                        value="{{ $role->id }}" 
-                        {{ $user->hasRole($role->name) ? 'checked' : '' }}
-                    >
-                    {{ $role->name }}
-                </label>
-            </div>
-        @endforeach
+<div class="card mt-2">
+    <div class="card-header bg-success text-white py-2">
+        <h5 class="m-0">{{ __('locky::messages.roles') }}</h5>    
     </div>
-@endif
+    <div class="card-body row justify-content-between py-1">
+        @foreach ($roles->split(2) as $chunk)
+        <div class="col-6">                                            
+                @foreach ($chunk as $role)
+                    <div class="form-check">
+                        <label 
+                            class="form-check-label {{ $user->hasRole($role->name) ? 'bg-success px-1 text-white' : '' }}" 
+                        >
+                            <input type="checkbox" 
+                                class="form-check-input" 
+                                name="roles[]" 
+                                id="" 
+                                value="{{ $role->id }}" 
+                                {{ $user->hasRole($role->name) ? 'checked' : '' }}
+                            >
+                            {{ $role->name }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+            @endforeach
+    </div>
 </div>
+@endif
