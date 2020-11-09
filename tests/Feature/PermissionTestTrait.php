@@ -3,11 +3,7 @@
 namespace Dainsys\Locky\Tests\Feature;
 
 use Dainsys\Locky\Permission;
-use Dainsys\Locky\Repositories\PermissionsRepository;
-use Dainsys\Locky\Repositories\RolesRepository;
-use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Role;
-use Dainsys\Locky\Tests\TestCase;
 use App\User;
 
 trait PermissionTestTrait
@@ -85,7 +81,14 @@ trait PermissionTestTrait
         $this->actingAs($this->authorizedUser())->get(route('permissions.edit', $permission->id))
             ->assertViewIs('locky::permissions.edit')
             ->assertViewHas('permission', $permission)
-            ->assertViewHas('roles', RolesRepository::all())
+            ->assertViewHas('roles', Role::orderBy('name')->with([
+                'users' => function ($query) {
+                    return $query->orderBy('name');
+                },
+                'permissions' => function ($query) {
+                    return $query->orderBy('name');
+                }
+            ])->get())
             // ->assertViewHas('users', UsersRepository::all())
         ;
     }

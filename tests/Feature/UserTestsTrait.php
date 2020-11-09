@@ -7,8 +7,6 @@ use Dainsys\Locky\Role;
 use Dainsys\Locky\Events\UserCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
-use Dainsys\Locky\Repositories\RolesRepository;
-use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Notifications\UserCreatedNotification;
 
 trait UserTestsTrait
@@ -73,7 +71,15 @@ trait UserTestsTrait
         $this->actingAs($this->authorizedUser())->get(route('users.index'))
             ->assertOk()
             ->assertViewIs('locky::users.index')
-            ->assertViewHas('users', UsersRepository::all());
+            ->assertViewHas('users', User::orderBy('name')
+                ->with([
+                    'roles' => function ($query) {
+                        return $query->orderBy('name');
+                    },
+                    'permissions' => function ($query) {
+                        return $query->orderBy('name');
+                    },
+                ])->get());
     }
 
     /** @test */
@@ -107,7 +113,14 @@ trait UserTestsTrait
         $this->actingAs($this->authorizedUser())->get(route('users.edit', $user->id))
             ->assertViewIs('locky::users.edit')
             ->assertViewHas('user', $user)
-            ->assertViewHas('roles', RolesRepository::all());
+            ->assertViewHas('roles', Role::orderBy('name')->with([
+                'users' => function ($query) {
+                    return $query->orderBy('name');
+                },
+                'permissions' => function ($query) {
+                    return $query->orderBy('name');
+                }
+            ])->get());
     }
 
     /** @test */

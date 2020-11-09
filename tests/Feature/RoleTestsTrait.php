@@ -4,9 +4,6 @@ namespace Dainsys\Locky\Tests\Feature;
 
 use App\User;
 use Dainsys\Locky\Permission;
-use Dainsys\Locky\Repositories\PermissionsRepository;
-use Dainsys\Locky\Repositories\RolesRepository;
-use Dainsys\Locky\Repositories\UsersRepository;
 use Dainsys\Locky\Role;
 
 trait RoleTestsTrait
@@ -66,7 +63,14 @@ trait RoleTestsTrait
         $this->actingAs($this->authorizedUser())->get(route('roles.index'))
             ->assertOk()
             ->assertViewIs('locky::roles.index')
-            ->assertViewHas('roles', RolesRepository::all());
+            ->assertViewHas('roles', Role::orderBy('name')->with([
+                'users' => function ($query) {
+                    return $query->orderBy('name');
+                },
+                'permissions' => function ($query) {
+                    return $query->orderBy('name');
+                }
+            ])->get());
     }
 
     /** @test */
@@ -88,8 +92,23 @@ trait RoleTestsTrait
         $this->actingAs($this->authorizedUser())->get(route('roles.edit', $role->id))
             ->assertViewIs('locky::roles.edit')
             ->assertViewHas('role', $role)
-            ->assertViewHas('users', UsersRepository::all())
-            ->assertViewHas('permissions', PermissionsRepository::all());
+            ->assertViewHas('users', User::orderBy('name')
+                ->with([
+                    'roles' => function ($query) {
+                        return $query->orderBy('name');
+                    },
+                    'permissions' => function ($query) {
+                        return $query->orderBy('name');
+                    },
+                ])->get())
+            ->assertViewHas('permissions', Permission::orderBy('name')->with([
+                'roles' => function ($query) {
+                    return $query->orderBy('name');
+                },
+                'users' => function ($query) {
+                    return $query->orderBy('name');
+                },
+            ])->get());
     }
 
     /** @test */
