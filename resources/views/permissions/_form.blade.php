@@ -14,7 +14,12 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="m-0">{{ __('locky::messages.user') }}s</h5>           
+                    <h5 class="m-0">
+                        {{ __('locky::messages.user') }}s
+                        <span class="badge badge-pill badge-primary text-white">
+                            {{ "{$permission->users->count()} / {$users->count()}"}}
+                        </span>
+                    </h5>           
                 </div>
                 <div class="card-body px-2 py-1 row">
                     @foreach ($users->split(2) as $chunk)
@@ -44,7 +49,12 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header bg-warning text-black">
-                    <h5 class="m-0">{{ __('locky::messages.roles') }}</h5>           
+                    <h5 class="m-0">
+                        {{ __('locky::messages.roles') }}
+                        <span class="badge badge-pill badge-warning text-black">
+                            {{ "{$permission->roles->count()} / {$roles->count()}"}}
+                        </span>
+                    </h5>           
                 </div>
                 <div class="card-body px-2 py-1 row">
                     @foreach ($roles->split(2) as $chunk)

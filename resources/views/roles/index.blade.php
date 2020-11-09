@@ -5,7 +5,10 @@
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header bg-white">
-                    <h4>{{ __('locky::messages.roles_list') }}</h4>
+                    <h4>
+                        {{ __('locky::messages.roles_list') }}
+                        <span class="badge badge-pill badge-info text-white">{{ $roles->count() }}</span>
+                    </h4>
                 </div>
                 <div class="card-body">
                     @include('locky::roles.create', ['action' => 'CREATE'])

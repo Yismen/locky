@@ -41,7 +41,12 @@
 @if ($action == 'UPDATE')
 <div class="card mt-2">
     <div class="card-header bg-success text-white py-2">
-        <h5 class="m-0">{{ __('locky::messages.roles') }}</h5>    
+        <h5 class="m-0">
+            {{ __('locky::messages.roles') }}
+            <span class="badge badge-pill badge-success text-white">
+                {{ "{$user->roles->count()} / {$roles->count()}"}}
+            </span>
+        </h5>    
     </div>
     <div class="card-body row justify-content-between py-1">
         @foreach ($roles->split(2) as $chunk)
