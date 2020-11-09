@@ -17,7 +17,7 @@
         
             <div class="card mt-2">
                 <div class="card-body p-0">
-                    <table class="table table table-inverse table-sm">
+                    <table class="table table table-inverse table-sm table-hover">
                         <thead class="thead-inverse">
                             <tr>
                                 <th>{{ __('locky::messages.name') }}</th>
