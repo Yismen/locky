@@ -3,7 +3,7 @@
 namespace Dainsys\Locky\Http\Controllers;
 
 use Dainsys\Locky\Repositories\PermissionsRepository;
-use Dainsys\Locky\Role;
+use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Repositories\RolesRepository;
 use Dainsys\Locky\Repositories\UsersRepository;
 

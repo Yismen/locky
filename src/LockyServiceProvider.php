@@ -3,8 +3,9 @@
 namespace Dainsys\Locky;
 
 use App\User;
+use Dainsys\Locky\Models\Permission;
+use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Policies\SuperUserPolicy;
-use Dainsys\Locky\Tests\Mocks\UserMock;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 

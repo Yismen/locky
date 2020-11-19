@@ -2,8 +2,8 @@
 
 namespace Dainsys\Locky\Tests\Feature;
 
-use Dainsys\Locky\Permission;
-use Dainsys\Locky\Role;
+use Dainsys\Locky\Models\Permission;
+use Dainsys\Locky\Models\Role;
 use App\User;
 
 trait PermissionTestTrait

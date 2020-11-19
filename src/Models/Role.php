@@ -1,6 +1,6 @@
 <?php
 
-namespace Dainsys\Locky;
+namespace Dainsys\Locky\Models;
 
 use Spatie\Permission\Models\Role as ModelsRole;
 

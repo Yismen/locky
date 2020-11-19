@@ -3,7 +3,7 @@
 namespace Dainsys\Locky\Tests\Feature;
 
 use App\User;
-use Dainsys\Locky\Role;
+use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Events\UserCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;

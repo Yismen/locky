@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky\Repositories;
 
-use Dainsys\Locky\Permission;
+use Dainsys\Locky\Models\Permission;
 
 class PermissionsRepository implements ModelRepositoryInterface
 {

@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky\Repositories;
 
-use Dainsys\Locky\Role;
+use Dainsys\Locky\Models\Role;
 
 class RolesRepository implements ModelRepositoryInterface
 {

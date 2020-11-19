@@ -3,8 +3,8 @@
 namespace Dainsys\Locky\Tests\Feature;
 
 use App\User;
-use Dainsys\Locky\Permission;
-use Dainsys\Locky\Role;
+use Dainsys\Locky\Models\Permission;
+use Dainsys\Locky\Models\Role;
 
 trait RoleTestsTrait
 {

@@ -7,10 +7,10 @@
             @can('view', App\User::class)
                 <a class="dropdown-item" href="{{ route('users.index') }}">{{ __('locky::messages.user') }}s</a>
             @endcan
-            @can('view', Dainsys\Locky\Role::class)
+            @can('view', Dainsys\Locky\Models\Role::class)
                 <a class="dropdown-item" href="{{ route('roles.index') }}">{{ __('locky::messages.roles') }}</a>
             @endcan
-            @can('view', Dainsys\Locky\Permission::class)
+            @can('view', Dainsys\Locky\Models\Permission::class)
                 <a class="dropdown-item" href="{{ route('permissions.index') }}">{{ __('locky::messages.permission') }}s</a>
             @endcan
         </div>
