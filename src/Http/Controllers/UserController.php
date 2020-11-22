@@ -39,13 +39,11 @@ class UserController extends Controller
      */
     public function store()
     {
-        $validatedData = $this->validateRequest([
+        $this->validateRequest([
             'password' => 'required|min:8',
         ]);
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
-        $user = User::create($validatedData);
-        event(new UserCreated($user));
+        UsersRepository::store();
 
         return redirect()->route('users.index');
     }
@@ -73,10 +71,9 @@ class UserController extends Controller
      */
     public function update(User $user)
     {
-        $validatedData = $this->validateRequest();
+        $this->validateRequest();
 
-        $user->update($validatedData);
-        $user->roles()->sync((array) request('roles'));
+        $user = UsersRepository::update($user);
 
         return redirect()->route('users.edit', $user->id);
     }

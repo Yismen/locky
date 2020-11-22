@@ -39,7 +39,7 @@ class RoleController extends Controller
      */
     public function store()
     {
-        Role::create($this->validateRequest());
+        RolesRepository::store();
 
         return redirect()->route('roles.index');
     }
@@ -53,7 +53,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         return view('locky::roles.edit', [
-            'role' => $role,
+            'role' => $role->load('users', 'permissions'),
             'users' => UsersRepository::all(),
             'permissions' => PermissionsRepository::all(),
         ]);
@@ -68,9 +68,7 @@ class RoleController extends Controller
      */
     public function update(Role $role)
     {
-        $role->update($this->validateRequest());
-        $role->users()->sync(request('users'));
-        $role->permissions()->sync(request('permissions'));
+        RolesRepository::update($role);
 
         return redirect()->route('roles.edit', $role->id);
     }

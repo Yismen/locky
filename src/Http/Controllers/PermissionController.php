@@ -37,7 +37,7 @@ class PermissionController extends Controller
      */
     public function store()
     {
-        Permission::create($this->validateRequest());
+        $permission = PermissionsRepository::store();
 
         return redirect()->route('permissions.index');
     }
@@ -51,7 +51,7 @@ class PermissionController extends Controller
     public function edit(Permission $permission)
     {
         return view('locky::permissions.edit', [
-            'permission' => $permission,
+            'permission' => $permission->load('roles', 'users'),
             'roles' => RolesRepository::all(),
             'users' => UsersRepository::all(),
         ]);
@@ -66,9 +66,7 @@ class PermissionController extends Controller
      */
     public function update(Permission $permission)
     {
-        $permission->update($this->validateRequest());
-        $permission->users()->sync(request('users'));
-        $permission->roles()->sync(request('roles'));
+        PermissionsRepository::update($permission);
 
         return redirect()->route('permissions.edit', $permission->id);
     }
