@@ -37,7 +37,9 @@ class PermissionController extends Controller
      */
     public function store()
     {
-        $permission = PermissionsRepository::store();
+        $this->validateRequest();
+
+        PermissionsRepository::store();
 
         return redirect()->route('permissions.index');
     }
@@ -66,6 +68,8 @@ class PermissionController extends Controller
      */
     public function update(Permission $permission)
     {
+        $this->validateRequest();
+
         PermissionsRepository::update($permission);
 
         return redirect()->route('permissions.edit', $permission->id);

@@ -39,6 +39,8 @@ class RoleController extends Controller
      */
     public function store()
     {
+        $this->validateRequest();
+
         RolesRepository::store();
 
         return redirect()->route('roles.index');
@@ -68,6 +70,8 @@ class RoleController extends Controller
      */
     public function update(Role $role)
     {
+        $this->validateRequest();
+
         RolesRepository::update($role);
 
         return redirect()->route('roles.edit', $role->id);
