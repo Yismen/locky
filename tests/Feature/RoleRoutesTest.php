@@ -5,8 +5,9 @@ namespace Dainsys\Locky\Tests\Feature;
 use App\User;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
+use Dainsys\Locky\Tests\TestCase;
 
-trait RoleTestsTrait
+class RoleRoutesTest extends TestCase
 {
     /** ===========================================================
      * Authentication and Authorization Tests

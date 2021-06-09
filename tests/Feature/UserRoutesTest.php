@@ -8,8 +8,9 @@ use Dainsys\Locky\Events\UserCreated;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Dainsys\Locky\Notifications\UserCreatedNotification;
+use Dainsys\Locky\Tests\TestCase;
 
-trait UserTestsTrait
+class UserRoutesTest extends TestCase
 {
     /** ===========================================================
      * Authentication and Authorization Tests
