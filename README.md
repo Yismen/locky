@@ -37,6 +37,8 @@ class MyController extends Controller
 }
 ```
 - Please read Larave Authorization's documentations at https://laravel.com/docs/7.x/authorization
+- This package add the concept of actives or inactive users by adding query scopes. Just use the scope `actives()` or `inactives()` to filter as desired. 
+- You can activate an user by calling the `activate()` method on a Eloquent User record; use `inactivate()` to inactivate an user.
 ### Dependencies
 * Dainsys Components: https://packagist.org/packages/dainsys/components
 * Laravel Ui: https://laravel.com/docs/7.x/authorization
