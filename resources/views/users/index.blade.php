@@ -24,12 +24,13 @@
                                     <th>{{ __('locky::messages.name') }}</th>
                                     <th>{{ __('locky::messages.email') }}</th>
                                     <th>{{ __('locky::messages.roles') }}</th>
+                                    <th>{{ __('locky::messages.status') }}</th>
                                     <th>{{ __('locky::messages.actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $user)
-                                        <tr>
+                                        <tr class="{{ $user->inactivated_at ? 'text-danger' : '' }}">
                                             <td scope="row">{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
@@ -38,6 +39,9 @@
                                                         {{ $role->name }}
                                                     </span>
                                                 @endforeach
+                                            </td>
+                                            <td>
+                                                {{ $user->inactivated_at ? 'Inactive' : '' }}
                                             </td>
                                             <td>
                                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">{{ __('locky::messages.edit') }}</a>

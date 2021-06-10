@@ -16,4 +16,5 @@ return [
     'update' => 'Actualizar',
     'user' => 'Usuario',
     'users_list' => 'Lista de Usuarios',
+    'status' => 'Status',
 ];

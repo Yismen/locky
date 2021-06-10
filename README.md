@@ -12,6 +12,12 @@ class User extends Authenticatable
     use WithLockyAcl;
 }
 ```
+* Add the following item to the `protected $casts` array:
+  ```javascript
+    protected $casts = [
+        'inactivated_at' => 'date'
+    ];
+  ```
 * Set you `LOCKY_SUPER_USER_EMAIL=super.user@email-example.com` in the .env file.
 * If you havent published the `laravel/ui` scafold, do so by running the `php artisan ui:auth`.
 * Views:

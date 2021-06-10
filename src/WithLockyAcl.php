@@ -2,6 +2,7 @@
 
 namespace Dainsys\Locky;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -26,9 +27,11 @@ trait WithLockyAcl
         $this->save();
     }
 
-    public function inactivate()
+    public function inactivate($date = null)
     {
-        $this->inactivated_at = now();
+        $date = $date ? Carbon::parse($date) : now();
+
+        $this->inactivated_at = $date;
         $this->save();
     }
 }

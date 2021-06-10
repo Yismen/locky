@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-12 {{ $action == 'CREATE' ? 'col-lg-4' : 'col-lg-6' }}">
+    <div class="col-sm-12 col-lg-4">
         <div class="form-group">
             <x-dc-input-field 
                 :field-value="old('name', $user->name)" 
@@ -8,7 +8,7 @@
             />
         </div>
     </div>
-    <div class="col-sm-12 {{ $action == 'CREATE' ? 'col-lg-4' : 'col-lg-6' }}">
+    <div class="col-sm-12 col-lg-4">
         <div class="form-group">
             <x-dc-input-field 
                 :field-value="old('email', $user->email)" 
@@ -26,6 +26,17 @@
                     field-name="password" 
                     label-name="{{ __('locky::messages.password') }}"
                 />
+            </div>
+        </div>
+    @else
+        <div class="col-sm-12 col-lg-4">
+            <div class="form-group text-{{ $user->inactivated_at ? 'danger' : 'success' }}">
+              <label for="inactivated_at">{{ $user->inactivated_at ? 'Inactive' : 'Active' }}</label>
+              <input type="date"
+                class="form-control" name="inactivated_at" id="inactivated_at" aria-describedby="helpId" placeholder=""
+                value="{{ $user->inactivated_at }}"
+                >                
+                <small id="helpId" class="form-text text-muted">Remove to activate employee.</small>
             </div>
         </div>
     @endif

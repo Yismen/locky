@@ -6,6 +6,7 @@ use App\User;
 use Dainsys\Locky\Events\UserCreated;
 use Dainsys\Locky\Repositories\RolesRepository;
 use Dainsys\Locky\Repositories\UsersRepository;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 

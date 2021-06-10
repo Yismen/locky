@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Cache;
 abstract class ModelRepositoryBase
 {
     protected static $CACHE_KEYS = [
-        PermissionsRepository::class => PermissionsRepository::class,
-        RolesRepository::class => RolesRepository::class,
-        UsersRepository::class => UsersRepository::class,
+        PermissionsRepository::class => 'permissions',
+        RolesRepository::class => 'roles',
+        UsersRepository::class => 'users',
     ];
 
     abstract public static function all(): Collection;

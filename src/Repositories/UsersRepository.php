@@ -14,6 +14,7 @@ class UsersRepository extends ModelRepositoryBase
     public static function all(): Collection
     {
         return Cache::rememberForever(self::$CACHE_KEYS[get_class(new self)], function () {
+            info(self::$CACHE_KEYS[get_class(new self)]);
             return self::query()->get();
         });
     }
@@ -38,8 +39,14 @@ class UsersRepository extends ModelRepositoryBase
     public static function update($user): Model
     {
         self::flushCache();
-
         $user->update(request()->all());
+
+        if (request()->inactivated_at) {
+            $user->inactivate(request()->inactivated_at);
+        } else {
+            $user->activate();
+        }
+
 
         $user->roles()->sync((array) request('roles'));
 
