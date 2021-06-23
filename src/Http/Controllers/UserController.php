@@ -4,6 +4,7 @@ namespace Dainsys\Locky\Http\Controllers;
 
 use App\User;
 use Dainsys\Locky\Events\UserCreated;
+use Dainsys\Locky\Repositories\PermissionsRepository;
 use Dainsys\Locky\Repositories\RolesRepository;
 use Dainsys\Locky\Repositories\UsersRepository;
 use Illuminate\Support\Facades\Cache;
@@ -59,7 +60,8 @@ class UserController extends Controller
     {
         return view('locky::users.edit', [
             'user' => $user,
-            'roles' => RolesRepository::all()
+            'roles' => RolesRepository::all(),
+            'permissions' => PermissionsRepository::all(),
         ]);
     }
 
@@ -101,7 +103,8 @@ class UserController extends Controller
         return $this->validate(request(), array_merge([
             'name' => 'required|min:5|unique:users,name,' . optional(request()->route('user'))->id,
             'email' =>  'required|email|unique:users,email,' . optional(request()->route('user'))->id,
-            'roles' => 'array'
+            'roles' => 'array',
+            'permissions' => 'array',
         ], $additionalRules));
     }
 }

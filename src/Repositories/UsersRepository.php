@@ -47,8 +47,9 @@ class UsersRepository extends ModelRepositoryBase
             $user->activate();
         }
 
-
         $user->roles()->sync((array) request('roles'));
+
+        $user->permissions()->sync((array) request('permissions'));
 
         return $user;
     }
