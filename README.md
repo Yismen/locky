@@ -19,7 +19,7 @@ class User extends Authenticatable
     ];
   ```
 * Set you `LOCKY_SUPER_USER_EMAIL=super.user@email-example.com` in the .env file.
-* If you havent published the `laravel/ui` scafold, do so by running the `php artisan ui:auth`.
+* This package relies on you having an auth system. We strongly suggest using `laravel/jetstream`, `laravel/freeze` or the legacy `laravel/ui`
 * Views:
 - The package ships with it's own views, therefore you MUST publish the package public assets by running `php artisan vendor:publish --tag=locky-public`. However, this is not necessary if you are planning to use your views. In this case you can run `php artisan vendor:publish --tag=locky-views` and make them extends your own layout view. 
 * Migrations:

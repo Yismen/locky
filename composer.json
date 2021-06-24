@@ -12,13 +12,13 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.2",
-        "laravel/ui": "^3.0",
         "dainsys/components": "^1.0",
         "spatie/laravel-permission": "^3.0",
         "laravel/framework": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
+        "laravel/ui": "^3.0",
         "laravel/legacy-factories": "1.x-dev"
     },
     "autoload": {
