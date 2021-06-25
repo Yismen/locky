@@ -19,7 +19,7 @@ class PermissionRoutesTest extends TestCase
     {
         $permission = $this->create(Permission::class);
 
-        $this->get(route('permissions.index'))
+        $this->get(route('locky.permissions.index'))
             ->assertRedirect(route('login'));
 
         $this->post(route('permissions.store', []))
@@ -38,7 +38,7 @@ class PermissionRoutesTest extends TestCase
         $user = factory(User::class)->create();
         $permission = factory(Permission::class)->create();
 
-        $this->actingAs($user)->get(route('permissions.index'))
+        $this->actingAs($user)->get(route('locky.permissions.index'))
             ->assertForbidden();
 
         $this->actingAs($user)->post(route('permissions.store'))
@@ -56,7 +56,7 @@ class PermissionRoutesTest extends TestCase
     {
         factory(Permission::class, 2)->create();
 
-        $this->actingAs($this->authorizedUser())->get(route('permissions.index'))
+        $this->actingAs($this->authorizedUser())->get(route('locky.permissions.index'))
             ->assertOk()
             ->assertViewIs('locky::permissions.index')
             ->assertViewHas('permissions', Permission::orderBy('name')->with('roles', 'users')->get());
@@ -68,7 +68,7 @@ class PermissionRoutesTest extends TestCase
         $attributes = ['name' => 'New Permission'];
 
         $this->actingAs($this->authorizedUser())->post(route('permissions.store', $attributes))
-            ->assertRedirect(route('permissions.index'));
+            ->assertRedirect(route('locky.permissions.index'));
 
         $this->assertDatabaseHas('permissions', $attributes);
     }

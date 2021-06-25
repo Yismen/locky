@@ -22,7 +22,7 @@ class UserRoutesTest extends TestCase
     {
         $user = $this->create(User::class);
 
-        $this->get(route('users.index'))
+        $this->get(route('locky.users.index'))
             ->assertRedirect(route('login'));
 
         $this->post(route('users.store', []))
@@ -43,7 +43,7 @@ class UserRoutesTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user)->get(route('users.index'))
+        $this->actingAs($user)->get(route('locky.users.index'))
             ->assertForbidden();
 
         $this->actingAs($user)->post(route('users.store'))
@@ -69,7 +69,7 @@ class UserRoutesTest extends TestCase
     {
         factory(User::class, 10)->create();
 
-        $this->actingAs($this->authorizedUser())->get(route('users.index'))
+        $this->actingAs($this->authorizedUser())->get(route('locky.users.index'))
             ->assertOk()
             ->assertViewIs('locky::users.index')
             ->assertViewHas('users', User::orderBy('name')
@@ -93,7 +93,7 @@ class UserRoutesTest extends TestCase
         $this->withoutExceptionHandling();
         $this->actingAs($this->authorizedUser())
             ->post(route('users.store'), $attributes)
-            ->assertRedirect(route('users.index'));
+            ->assertRedirect(route('locky.users.index'));
 
         $this->assertDatabaseHas('users', [
             'name' => $attributes['name'],
@@ -157,7 +157,7 @@ class UserRoutesTest extends TestCase
         $user = User::withTrashed()->find($user->id);
 
         $this->actingAs($this->authorizedUser())->post(route('users.restore', $user->id))
-            ->assertRedirect(route('users.index'));
+            ->assertRedirect(route('locky.users.index'));
 
         $this->assertDatabaseHas('users', ['name' => $user->name, 'email' => $user->email, 'deleted_at' => null]);
     }

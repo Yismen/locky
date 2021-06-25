@@ -19,7 +19,7 @@ class RoleRoutesTest extends TestCase
     {
         $role = $this->create(Role::class);
 
-        $this->get(route('roles.index'))
+        $this->get(route('locky.roles.index'))
             ->assertRedirect(route('login'));
 
         $this->post(route('roles.store', []))
@@ -38,7 +38,7 @@ class RoleRoutesTest extends TestCase
         $user = factory(User::class)->create();
         $role = factory(Role::class)->create();
 
-        $this->actingAs($user)->get(route('roles.index'))
+        $this->actingAs($user)->get(route('locky.roles.index'))
             ->assertForbidden();
 
         $this->actingAs($user)->post(route('roles.store'))
@@ -61,7 +61,7 @@ class RoleRoutesTest extends TestCase
     {
         factory(Role::class, 10)->create();
         $this->withoutExceptionHandling();
-        $this->actingAs($this->authorizedUser())->get(route('roles.index'))
+        $this->actingAs($this->authorizedUser())->get(route('locky.roles.index'))
             ->assertOk()
             ->assertViewIs('locky::roles.index')
             ->assertViewHas('roles', Role::orderBy('name')->with([
@@ -80,7 +80,7 @@ class RoleRoutesTest extends TestCase
         $attributes = ['name' => 'New Role'];
 
         $this->actingAs($this->authorizedUser())->post(route('roles.store', $attributes))
-            ->assertRedirect(route('roles.index'));
+            ->assertRedirect(route('locky.roles.index'));
 
         $this->assertDatabaseHas('roles', $attributes);
     }

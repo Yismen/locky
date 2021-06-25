@@ -43,7 +43,7 @@ class RoleController extends Controller
 
         RolesRepository::store();
 
-        return redirect()->route('roles.index');
+        return redirect()->route('locky.roles.index');
     }
 
     /**

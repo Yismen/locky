@@ -3,9 +3,6 @@
 namespace Dainsys\Locky;
 
 use App\User;
-use Dainsys\Locky\Http\Livewire\Permission\PermissionIndex;
-use Dainsys\Locky\Http\Livewire\Permission\PermissionDetail;
-use Dainsys\Locky\Http\Livewire\Permission\PermissionForm;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Policies\SuperUserPolicy;
@@ -79,9 +76,17 @@ class LockyServiceProvider extends ServiceProvider
 
     protected function bootLivewireComponents()
     {
-        Livewire::component('locky::permission.permission-index', PermissionIndex::class);
-        Livewire::component('locky::permission.permission-form', PermissionForm::class);
-        Livewire::component('locky::permission.permission-detail', PermissionDetail::class);
+        Livewire::component('locky::permission.permission-index', \Dainsys\Locky\Http\Livewire\Permission\PermissionIndex::class);
+        Livewire::component('locky::permission.permission-form', \Dainsys\Locky\Http\Livewire\Permission\PermissionForm::class);
+        Livewire::component('locky::permission.permission-detail', \Dainsys\Locky\Http\Livewire\Permission\PermissionDetail::class);
+
+        Livewire::component('locky::user.user-index', \Dainsys\Locky\Http\Livewire\User\UserIndex::class);
+        Livewire::component('locky::user.user-form', \Dainsys\Locky\Http\Livewire\User\UserForm::class);
+        Livewire::component('locky::user.user-detail', \Dainsys\Locky\Http\Livewire\User\UserDetail::class);
+
+        Livewire::component('locky::role.role-index', \Dainsys\Locky\Http\Livewire\Role\RoleIndex::class);
+        Livewire::component('locky::role.role-form', \Dainsys\Locky\Http\Livewire\Role\RoleForm::class);
+        Livewire::component('locky::role.role-detail', \Dainsys\Locky\Http\Livewire\Role\RoleDetail::class);
 
         return $this;
     }

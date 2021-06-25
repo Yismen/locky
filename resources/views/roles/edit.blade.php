@@ -7,7 +7,7 @@
                 <div class="card-header bg-white">
                     <h4>
                         {{ __('locky::messages.edit') }} {{ __('locky::messages.role') }} - {{ $role->name }}
-                        <a href="{{ route('roles.index') }}" class="float-right" title="{{ __('locky::messages.roles_list') }}">{{ __('locky::messages.list') }}</a>
+                        <a href="{{ route('locky.roles.index') }}" class="float-right" title="{{ __('locky::messages.roles_list') }}">{{ __('locky::messages.list') }}</a>
                     </h4>
                 </div>
                 <div class="card-body">        
