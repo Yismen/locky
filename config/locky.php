@@ -13,4 +13,10 @@ return [
      * Middlewares: array of middlewares to be applyied to package's routes. 
      */
     'middlewares' => ['web', 'auth'],
+
+    'icons' => [
+        'both' => '&#x21f5;',
+        'asc' => '&#8593;',
+        'desc' => '&#8595;'
+    ]
 ];

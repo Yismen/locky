@@ -3,11 +3,15 @@
 namespace Dainsys\Locky;
 
 use App\User;
+use Dainsys\Locky\Http\Livewire\Permission\PermissionIndex;
+use Dainsys\Locky\Http\Livewire\Permission\PermissionDetail;
+use Dainsys\Locky\Http\Livewire\Permission\PermissionForm;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Policies\SuperUserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Livewire;
 
 class LockyServiceProvider extends ServiceProvider
 {
@@ -24,9 +28,9 @@ class LockyServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->registerPublishables()
-            ->bootConfigurations()
-            ->registerPolicies();
+        $this->bootPublishables()
+            ->bootLivewireComponents()
+            ->bootConfigurations();
 
         Gate::define('is-super-user', function ($user) {
             return $user->email === config('locky.super_user_email');
@@ -35,13 +39,15 @@ class LockyServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->registerPolicies();
+
         $this->mergeConfigFrom(
             __DIR__ . '/../config/locky.php',
             'locky'
         );
     }
 
-    protected function registerPublishables()
+    protected function bootPublishables()
     {
         $this->publishes([
             __DIR__ . '/../config/locky.php' => config_path('locky.php')
@@ -67,6 +73,15 @@ class LockyServiceProvider extends ServiceProvider
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
         $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
+
+        return $this;
+    }
+
+    protected function bootLivewireComponents()
+    {
+        Livewire::component('locky::permission.permission-index', PermissionIndex::class);
+        Livewire::component('locky::permission.permission-form', PermissionForm::class);
+        Livewire::component('locky::permission.permission-detail', PermissionDetail::class);
 
         return $this;
     }
