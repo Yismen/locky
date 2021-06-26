@@ -8,8 +8,8 @@ Route::middleware(config('locky.middlewares'))
     ->name('locky.')
     ->group(function () {
         Route::get('/', 'DashboardController@index')->name('locky.dashboard');
-        Route::post('users/{user}/restore', 'UserController@restore')->name('users.restore');
-        Route::get('users', 'UserController@index')->name('users.index');
-        Route::get('roles', 'RoleController@index')->name('roles.index');
-        Route::get('permissions', 'PermissionController@index')->name('permissions.index');
+
+        Route::get('users', 'LockyViewsController@users')->name('users.index');
+        Route::get('roles', 'LockyViewsController@roles')->name('roles.index');
+        Route::get('permissions', 'LockyViewsController@permissions')->name('permissions.index');
     });
