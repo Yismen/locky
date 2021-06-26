@@ -36,6 +36,7 @@ class UserIndex extends Component
                     ]),
                 $searchableFields =  [
                     'name',
+                    'email',
                     'roles.name',
                     // 'permissions.name',
                 ]
