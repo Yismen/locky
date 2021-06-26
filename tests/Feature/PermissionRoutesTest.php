@@ -17,18 +17,7 @@ class PermissionRoutesTest extends TestCase
     /** @test */
     public function guest_are_unauthorized_to_interact_with_permissions()
     {
-        $permission = $this->create(Permission::class);
-
         $this->get(route('locky.permissions.index'))
-            ->assertRedirect(route('login'));
-
-        $this->post(route('permissions.store', []))
-            ->assertRedirect(route('login'));
-
-        $this->get(route('permissions.edit', $permission->id))
-            ->assertRedirect(route('login'));
-
-        $this->patch(route('permissions.update', $permission->id))
             ->assertRedirect(route('login'));
     }
 
@@ -36,140 +25,17 @@ class PermissionRoutesTest extends TestCase
     public function unauthorized_permissions_cant_interact_with_permissions()
     {
         $user = factory(User::class)->create();
-        $permission = factory(Permission::class)->create();
 
         $this->actingAs($user)->get(route('locky.permissions.index'))
-            ->assertForbidden();
-
-        $this->actingAs($user)->post(route('permissions.store'))
-            ->assertForbidden();
-
-        $this->actingAs($user)->get(route('permissions.edit', $permission->id))
-            ->assertForbidden();
-
-        $this->actingAs($user)->patch(route('permissions.update', $permission->id))
             ->assertForbidden();
     }
 
     /** @test */
     public function permission_can_see_permissions()
     {
-        factory(Permission::class, 2)->create();
-
         $this->actingAs($this->authorizedUser())->get(route('locky.permissions.index'))
             ->assertOk()
-            ->assertViewIs('locky::permissions.index')
-            ->assertViewHas('permissions', Permission::orderBy('name')->with('roles', 'users')->get());
-    }
-
-    /** @test */
-    public function a_permission_can_be_stored()
-    {
-        $attributes = ['name' => 'New Permission'];
-
-        $this->actingAs($this->authorizedUser())->post(route('permissions.store', $attributes))
-            ->assertRedirect(route('locky.permissions.index'));
-
-        $this->assertDatabaseHas('permissions', $attributes);
-    }
-
-    /** @test */
-    public function permission_can_be_edited()
-    {
-        $this->withoutExceptionHandling();
-        $permission = factory(Permission::class)->create();
-
-        $this->actingAs($this->authorizedUser())->get(route('permissions.edit', $permission->id))
-            ->assertViewIs('locky::permissions.edit')
-            ->assertViewHas('permission', $permission)
-            ->assertViewHas('roles', Role::orderBy('name')->with([
-                'users' => function ($query) {
-                    return $query->orderBy('name');
-                },
-                'permissions' => function ($query) {
-                    return $query->orderBy('name');
-                }
-            ])->get())
-            // ->assertViewHas('users', UsersRepository::all())
-        ;
-    }
-
-    /** @test */
-    public function permission_can_be_updated()
-    {
-        $permission = factory(Permission::class)->create();
-        $attributes = ['name' => 'Updated Name'];
-
-        $this->actingAs($this->authorizedUser())->put(route('permissions.update', $permission->id), $attributes)
-            ->assertRedirect(route('permissions.edit', $permission->id));
-
-        $this->assertDatabaseHas('permissions', $attributes);
-    }
-
-    /** @test */
-    public function users_and_permissions_can_be_synced_on_update()
-    {
-        $permission = factory(Permission::class)->create();
-        $users = factory(User::class, 3)->create()->pluck('id')->toArray();
-        $roles = factory(Role::class, 3)->create()->pluck('id')->toArray();
-
-        $attributes = array_merge($permission->toArray(), [
-            'users' => (array) $users,
-            'roles' => (array) $roles
-        ]);
-
-        $this->actingAs($this->authorizedUser())->put(route('permissions.update', $permission->id), $attributes);
-        $this->assertEquals($users, $permission->users()->pluck('id')->toArray());
-        $this->assertEquals($roles, $permission->roles()->pluck('id')->toArray());
-    }
-
-    /** ===============================================================================
-     * Validation Tests
-     * ===============================================================================
-     */
-
-    /** @test */
-    public function a_name_is_required_to_create()
-    {
-        $this->actingAs($this->authorizedUser())->post(route('permissions.store'), ['name' => null])
-            ->assertSessionHasErrors('name');
-    }
-
-    /** @test */
-    public function a_name_is_required_to_update()
-    {
-        $permission = $this->permission();
-        $this->actingAs($this->authorizedUser())->put(route('permissions.update', $permission->id), ['name' => null])
-            ->assertSessionHasErrors('name');
-    }
-
-    /** @test */
-    public function a_name_must_be_unique_to_create()
-    {
-        $permission = factory(Permission::class)->create();
-
-        $this->actingAs($this->authorizedUser())->post(route('permissions.store', ['name' => $permission->name]))
-            ->assertSessionHasErrors('name');
-    }
-
-    /** @test */
-    public function a_name_must_be_unique_to_update()
-    {
-        $permission = $this->permission();
-        $secondPermission = $this->permission();
-        $this->actingAs($this->authorizedUser())->put(route('permissions.update', $permission->id), ['name' => $secondPermission->name])
-            ->assertSessionHasErrors('name');
-    }
-
-
-    /** @test */
-    public function name_must_be_unique_except_on_same_permission()
-    {
-        $this->withoutExceptionHandling();
-        $permission = $this->permission();
-
-        $this->actingAs($this->authorizedUser())->put(route('permissions.update', $permission->id), ['name' => $permission->name])
-            ->assertSessionDoesntHaveErrors('name');
+            ->assertViewIs('locky::permissions.index');
     }
 
     protected function permission($amount = null)
