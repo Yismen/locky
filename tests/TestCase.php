@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Support\Facades\Route;
 use Laravel\Ui\UiServiceProvider;
+use Livewire\LivewireServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends OrchestraTestCase
@@ -45,6 +46,7 @@ class TestCase extends OrchestraTestCase
             PermissionServiceProvider::class,
             ComponentsServiceProvider::class,
             LockyServiceProvider::class,
+            LivewireServiceProvider::class,
         ];
     }
 
