@@ -5,11 +5,17 @@ namespace Dainsys\Locky;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 trait WithLockyAcl
 {
     use HasRoles;
     use SoftDeletes;
+
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = Str::of($name)->trim()->title()->__toString();
+    }
 
     public function scopeActives($query)
     {

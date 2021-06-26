@@ -2,13 +2,12 @@
 
 namespace App;
 
+use Dainsys\Locky\Contracts\UserContract;
 use Dainsys\Locky\WithLockyAcl;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Dainsys\Timy\Timeable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements UserContract
 {
     use Notifiable;
     use WithLockyAcl;

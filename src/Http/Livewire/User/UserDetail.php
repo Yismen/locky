@@ -2,20 +2,22 @@
 
 namespace Dainsys\Locky\Http\Livewire\User;
 
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Livewire\Component;
 
 class UserDetail extends Component
 {
     public bool $show = false;
 
-    public User $user;
+    public $user;
 
     protected $listeners = ['wantsDetailUser' => 'details'];
 
-    public function mount(User $user = null)
+    public function mount($user = null)
     {
-        $this->user = $user;
+        $this->user = $user ?: app(User::class);
+
+        $this->user->load('roles', 'permissions');
     }
 
     public function render()
@@ -30,12 +32,12 @@ class UserDetail extends Component
     /**
      * Show model details.
      *
-     * @param User $user
+     * @param $user
      * @return void
      */
-    public function details(User $user)
+    public function details($user)
     {
-        $this->user = $user;
+        $this->user = app(User::class)->findOrFail($user);
 
         $this->dispatchBrowserEvent('show-detail-user-modal');
     }

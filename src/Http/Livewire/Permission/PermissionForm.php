@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky\Http\Livewire\Permission;
 
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Repositories\RolesRepository;
@@ -160,8 +160,10 @@ class PermissionForm extends Component
         $this->emit('permissionSaved');
     }
 
-    public function updateUser(User $user)
+    public function updateUser($user)
     {
+        $user = app(User::class)->find($user);
+
         Cache::flush();
 
         if (!$user->hasPermissionTo($this->permission->name)) {

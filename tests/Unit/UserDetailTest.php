@@ -24,8 +24,8 @@ class UserDetailTest extends TestCase
         $user = factory(User::class)->create();
 
         Livewire::test(UserDetail::class)
-            ->emit('wantsDetailUser', $user)
+            ->emit('wantsDetailUser', $user->id)
             ->assertDispatchedBrowserEvent('show-detail-user-modal')
-            ->assertSet('user', $user);
+            ->assertSet('user', $user->fresh()->load('permissions', 'roles'));
     }
 }

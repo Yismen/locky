@@ -13,6 +13,14 @@ return [
      * Middlewares: array of middlewares to be applyied to package's routes. 
      */
     'middlewares' => ['web', 'auth'],
+    /**
+     * Models cointainer binding.
+     */
+    'models' => [
+        'user' => \App\User::class,
+        // 'permission' => \Dainsys\Locky\Models\Permission::class,
+        // 'role' => \Dainsys\Locky\Models\Role::class,
+    ],
 
     'icons' => [
         'both' => '&#x21f5;',

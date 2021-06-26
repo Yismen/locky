@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky\Http\Livewire\Role;
 
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Repositories\PermissionsRepository;
@@ -135,8 +135,9 @@ class RoleForm extends Component
     {
         $this->validateOnly($propertyName);
     }
-    public function updateUser(User $user)
+    public function updateUser($user)
     {
+        $user = app(User::class)->find($user);
         Cache::flush();
 
         if (!$user->hasRole($this->role->name)) {
