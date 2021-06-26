@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky\Repositories;
 
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Dainsys\Locky\Events\UserCreated;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -56,7 +56,10 @@ class UsersRepository extends ModelRepositoryBase
 
     public static function query()
     {
-        return User::orderBy('name')
+        $user = app(User::class);
+
+        return $user->query()
+            ->orderBy('name')
             ->with([
                 'roles' => function ($query) {
                     return $query->orderBy('name');

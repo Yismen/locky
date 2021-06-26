@@ -3,7 +3,7 @@
 namespace Dainsys\Locky\Http\Livewire\User;
 
 use Dainsys\Locky\Http\Livewire\PaginationTrait;
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Livewire\Component;
 
 class UserIndex extends Component
@@ -25,7 +25,7 @@ class UserIndex extends Component
     {
         return view('locky::livewire.user.user-index', [
             'users' => $this->getPaginatedData(
-                $query = User::query()
+                $query = app(User::class)->query()
                     ->with([
                         'roles' => function ($query) {
                             $query->orderBy('name');
@@ -49,17 +49,17 @@ class UserIndex extends Component
         $this->emit('wantsCreateUser');
     }
 
-    public function edit(User $user)
+    public function edit($user)
     {
         $this->emit('wantsEditUser', $user);
     }
 
-    public function delete(User $user)
+    public function delete($user)
     {
         $this->emit('wantsDeleteUser', $user);
     }
 
-    public function detail(User $user)
+    public function detail($user)
     {
         $this->emit('wantsDetailUser', $user);
     }

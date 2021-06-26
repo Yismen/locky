@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky\Http\Controllers;
 
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
 

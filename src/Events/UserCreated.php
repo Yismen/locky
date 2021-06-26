@@ -3,7 +3,7 @@
 namespace Dainsys\Locky\Events;
 
 use Dainsys\Locky\Notifications\UserCreatedNotification;
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

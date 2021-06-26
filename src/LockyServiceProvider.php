@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky;
 
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Policies\SuperUserPolicy;
@@ -25,7 +25,9 @@ class LockyServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->bootPublishables()
+        $this
+            ->bootModelBindings()
+            ->bootPublishables()
             ->bootLivewireComponents()
             ->bootConfigurations();
 
@@ -42,6 +44,16 @@ class LockyServiceProvider extends ServiceProvider
             __DIR__ . '/../config/locky.php',
             'locky'
         );
+    }
+
+    protected function bootModelBindings()
+    {
+        if ($config = $this->app->config['locky.models']) {
+            $this->app->bind(User::class, $config['user']);
+        }
+
+
+        return $this;
     }
 
     protected function bootPublishables()

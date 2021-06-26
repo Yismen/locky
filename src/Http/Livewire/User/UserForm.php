@@ -2,7 +2,7 @@
 
 namespace Dainsys\Locky\Http\Livewire\User;
 
-use App\User;
+use Dainsys\Locky\Contracts\UserContract as User;
 use Dainsys\Locky\Models\Permission;
 use Dainsys\Locky\Models\Role;
 use Dainsys\Locky\Repositories\PermissionsRepository;
@@ -41,13 +41,15 @@ class UserForm extends Component
         'fields.inactivated_at' => 'sometimes|nullable|date',
     ];
 
-    public User $user;
+    public $user;
 
     public $selected_roles = [];
 
-    public function mount(User $user = null)
+    public function mount($user = null)
     {
-        $this->user = $user->load('permissions', 'roles');
+        $this->user = $user ?: app(User::class);
+
+        $this->user->load('roles', 'permissions');
     }
 
     /**
@@ -93,7 +95,7 @@ class UserForm extends Component
 
         $this->fields['password'] = Hash::make($this->fields['password']);
 
-        User::create($this->fields);
+        app(User::class)->create($this->fields);
 
         $this->emit('userSaved');
 
@@ -102,12 +104,13 @@ class UserForm extends Component
     /**
      * Display the edit form.
      *
-     * @param User $user
+     * @param $user
      * @return void
      */
-    public function edit(User $user)
+    public function edit(int $user)
     {
         $this->resetValidation();
+        $user = app(User::class)->findOrFail($user);
 
         $this->user = $user->load('permissions', 'roles');
 
@@ -130,9 +133,18 @@ class UserForm extends Component
             ]
         ));
 
-        $user = User::findOrFail($this->fields['id']);
+
+        $user = app(User::class)->findOrFail($this->fields['id']);
 
         $user->update($this->fields);
+
+        if ($this->fields['inactivated_at'] ?? null) {
+            $user->inactivated_at = $this->fields['inactivated_at'];
+        } else {
+            $user->inactivated_at = null;
+        }
+
+        $user->save();
 
         $this->emit('userSaved');
 

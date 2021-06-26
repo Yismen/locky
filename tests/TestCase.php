@@ -43,9 +43,9 @@ class TestCase extends OrchestraTestCase
     {
         return [
             UiServiceProvider::class,
+            LockyServiceProvider::class,
             PermissionServiceProvider::class,
             ComponentsServiceProvider::class,
-            LockyServiceProvider::class,
             LivewireServiceProvider::class,
         ];
     }
