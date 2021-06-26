@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h4 class="card-title px-5">
-                        {{ __('Users') }}
+                        {{ __('locky::messages.users_list') }}
                     </h4>
                 </div>
                 <div class="col-md-8">
@@ -16,7 +16,7 @@
                                 @foreach ($this->filterAmounts($users->total()) as $interval)
                                     <option value="{{ $interval }}">
                                         @if ($loop->last)
-                                            {{ __('All') }}
+                                            {{ __('locky::messages.all') }}
                                         @else
                                             {{ $interval }}
                                         @endif
@@ -28,7 +28,7 @@
                         <div class="mr-2" wire:ignore>
                             <div class="input-group">
                                 <input type="text"
-                                class="form-control" wire:model.debounce.500ms="search" aria-describedby="helpId" placeholder="Search">
+                                class="form-control" wire:model.debounce.500ms="search" aria-describedby="helpId" placeholder="{{ __('locky::messages.search') }}">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-light text-dark border" type="button" wire:click.prevent="$set('search', '')">&times;</button>
                                 </div>
@@ -55,7 +55,7 @@
                         <tr>
                             <th>
                                 <a href="#" wire:click.prevent="sortBy('name')" class="d-flex flex-row justify-content-start">
-                                    {{ __('Name') }}  
+                                    {{ __('locky::messages.name') }}  
                                     <span>{!! $this->getIcon('name') !!}</span>
                                 </a>
                             </th>
@@ -67,15 +67,15 @@
                             </th>
                             <th>
                                 <a href="#" wire:click.prevent="sortBy('inactivated_at')" class="d-flex flex-row justify-content-start">
-                                    {{ __('Status') }}  
+                                    {{ __('locky::messages.status') }}  
                                     <span>{!! $this->getIcon('inactivated_at') !!}</span>
                                 </a>
                             </th>
                             <th>
-                                {{ __('Roles') }} 
+                                {{ __('locky::messages.roles_list') }} 
                             </th>
 
-                            <th class="col-1">Actions</th>
+                            <th class="col-1">{{ __('locky::messages.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,14 +95,14 @@
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" 
                                         wire:click.prevent="edit({{ $user->id }})"
-                                        title="{{ __('Edit') }}"
+                                        title="{{ __('locky::messages.edit') }}"
                                     >
                                         @include('locky::livewire.icons.pencil')                                         
                                     </a>
                                     <a href="#" 
                                         class="btn btn-default btn-sm border" 
                                         wire:click.prevent="detail({{ $user->id }})"
-                                        title="{{ __('Details') }}"
+                                        title="{{ __('locky::messages.details') }}"
                                     >
                                         @include('locky::livewire.icons.eye')                                         
                                     </a>                                    

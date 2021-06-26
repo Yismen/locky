@@ -1,7 +1,7 @@
 <div class="row">
     {{-- Roles --}}
     <div class="col-md-6">       
-        <h4>{{ __('Roles') }}</h4>                 
+        <h4>{{ __('locky::messages.roles_list') }}</h4>                 
         <div class="row">
             @foreach ($roles->split(2) as $chunk)
                 <div class="col-lg-6">
@@ -28,7 +28,7 @@
     </div>
     {{-- Users --}}
     <div class="col-md-6">       
-        <h4>{{ __('Users') }}</h4>                 
+        <h4>{{ __('locky::messages.users_list') }}</h4>                 
         <div class="row">
             @foreach ($users->split(2) as $chunk)
                 <div class="col-lg-6">

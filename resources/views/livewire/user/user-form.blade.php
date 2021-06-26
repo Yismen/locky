@@ -1,13 +1,13 @@
 <div class="inline-flex"  >
     <button type="button" wire:click.prevent="create()"  data-toggle="modal" class="btn btn-primary">
-        {{ __('Add') }}
+        {{ __('locky::messages.add') }}
     </button>  
     <!-- Create or Update Modal -->    
     <div wire:ignore.self class="modal fade" id="createOrUpdateUserModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between">
-                    <h5 class="modal-title">{{ $is_editing ? __('Edit') : __('Create') }} User</h5>
+                    <h5 class="modal-title">{{ $is_editing ? __('locky::messages.edit') : __('locky::messages.create') }} {{ __('locky::messages.user') }}</h5>
                     <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close" title="{{ __('Close') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -20,7 +20,7 @@
                 
                     <div class="modal-body">
                         @if ($is_editing && $user->inactivated_at)                            
-                            <label for="inactivated_at">{{ __('Inactivation Date') }}</label>
+                            <label for="inactivated_at">{{ __('locky::messages.inactivation_date') }}</label>
                             <input type="date"
                             class="form-control @error('fields.inactivated_at') is-invalid @enderror" wire:model.debounce.350ms="fields.inactivated_at" id="inactivated_at" aria-describedby="inactivated_at" placeholder="">
                             @error('fields.inactivated_at')
@@ -44,7 +44,7 @@
                             </button>
                         @else                      
                             <button type="submit" class="btn btn-primary">
-                                {{  __('Create') }}
+                                {{  __('locky::messages.create') }}
                             </button>                       
                         @endif
                     </div>

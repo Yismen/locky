@@ -4,7 +4,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('Details For') }} {{ $user->name ?? '' }}</h5>
+                    <h5 class="modal-title">{{ __('locky::messages.details') }} {{ __('locky::messages.for') }} {{ $user->name ?? '' }}</h5>
                     <button type="button" class="close" wire:click.prevent="closeModal" aria-label="Close">
                         <span>&times;</span>
                     </button>
@@ -13,7 +13,7 @@
                     <table class="table">
                         <tbody class="text-{{ $user->inactivated_at ? 'danger' : '' }}">
                             <tr>
-                                <th class="col-4">{{ __('Name') }}</th>
+                                <th class="col-4">{{ __('locky::messages.name') }}</th>
                                 <td>{{ $user->name ?? '' }}</td>
                             </tr>
                             <tr>
@@ -21,11 +21,11 @@
                                 <td>{{ $user->email ?? '' }}</td>
                             </tr>
                             <tr>
-                                <th class="col-4">{{ __('Created At') }}</th>
-                                <td>{{ $user->created_at ?? '' }} / {{ $user->created_at ?? '' }}</td>
+                                <th class="col-4">{{ __('locky::messages.created_at') }}</th>
+                                <td>{{ $user->created_at ?? '' }} / {{ optional($user->created_at)->diffForHumans() ?? '' }}</td>
                             </tr>
                             <tr>
-                                <th class="col-4">{{ __('Status') }}</th>
+                                <th class="col-4">{{ __('locky::messages.status') }}</th>
                                 <td>
                                     @if ($user->inactivated_at)
                                         Inactive / {{ $user->inactivated_at ?? '' }}
@@ -35,7 +35,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="col-4">{{ __('Roles') }}</th>
+                                <th class="col-4">{{ __('locky::messages.roles_list') }}</th>
                                 <td>
                                     @foreach ($user->roles as $role)
                                         <span class="badge badge-success">{{ $role->name }}</span>
@@ -43,7 +43,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="col-4">{{ __('Permissions') }}</th>
+                                <th class="col-4">{{ __('locky::messages.permissions_list') }}</th>
                                 <td>
                                     @foreach ($user->permissions as $permission)
                                         <span class="badge badge-primary">{{ $permission->name }}</span>

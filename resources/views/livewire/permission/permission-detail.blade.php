@@ -4,7 +4,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('Details For') }} {{ $permission->name ?? '' }}</h5>
+                    <h5 class="modal-title">{{ __('locky::messages.details') }} {{ __('locky::messages.for') }} {{ $permission->name ?? '' }}</h5>
                     <button type="button" class="close" wire:click.prevent="closeModal" aria-label="Close">
                         <span>&times;</span>
                     </button>
@@ -13,11 +13,11 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <th class="col-4">{{ __('Name') }}</th>
+                                <th class="col-4">{{ __('locky::messages.name') }}</th>
                                 <td>{{ $permission->name ?? '' }}</td>
                             </tr>
                             <tr>
-                                <th class="col-4">{{ __('Roles') }}</th>
+                                <th class="col-4">{{ __('locky::messages.roles_list') }}</th>
                                 <td>
                                     @foreach ($permission->roles as $role)
                                         <span class="badge badge-success">{{ $role->name }}</span>
@@ -25,7 +25,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="col-4">{{ __('Users') }}</th>
+                                <th class="col-4">{{ __('locky::messages.users_list') }}</th>
                                 <td>
                                     @foreach ($permission->users as $user)
                                         <span class="badge badge-primary">{{ $user->name }}</span>

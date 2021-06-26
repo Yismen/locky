@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">                            
         <div class="form-group">
-            <label for="name">{{ __('Name') }}</label>
+            <label for="name">{{ __('locky::messages.name') }}</label>
             <input type="text"
             class="form-control @error('fields.name') is-invalid @enderror" wire:model.debounce.350ms="fields.name" id="name" aria-describedby="name" placeholder="">
             @error('fields.name')
@@ -29,7 +29,7 @@
     <div class="col-md-6">                            
         <div class="form-group">
             @if ($is_editing)
-                <label for="inactivated_at">{{ __('Inactivation Date') }}</label>
+                <label for="inactivated_at">{{ __('locky::messages.inactivation_date') }}</label>
                 <input type="date"
                 class="form-control @error('fields.inactivated_at') is-invalid @enderror" wire:model.debounce.350ms="fields.inactivated_at" id="inactivated_at" aria-describedby="inactivated_at" placeholder="">
                 @error('fields.inactivated_at')
@@ -55,7 +55,7 @@
     <div class="row">
         {{-- Roles --}}
         <div class="col-md-6">       
-            <h4>{{ __('Roles') }}</h4>                 
+            <h4>{{ __('locky::messages.roles_list') }}</h4>                 
             <div class="row">
                 @foreach ($roles->split(2) as $chunk)
                     <div class="col-lg-6">
@@ -82,7 +82,7 @@
         </div>
         {{-- Permissions --}}
         <div class="col-md-6">       
-            <h4>{{ __('Permissions') }}</h4>                 
+            <h4>{{ __('locky::messages.permissions_list') }}</h4>                 
             <div class="row">
                 @foreach ($permissions->split(2) as $chunk)
                     <div class="col-lg-6">

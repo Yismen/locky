@@ -1,13 +1,13 @@
 <div class="inline-flex"  >
     <button type="button" wire:click.prevent="create()"  data-toggle="modal" class="btn btn-primary">
-        {{ __('Add') }}
+        {{ __('locky::messages.add') }}
     </button>  
     <!-- Create or Update Modal -->    
     <div wire:ignore.self class="modal fade" id="createOrUpdatePermissionModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between">
-                    <h5 class="modal-title">{{ $is_editing ? __('Edit') : __('Create') }} Permission</h5>
+                    <h5 class="modal-title">{{ $is_editing ? __('locky::messages.edit') : __('locky::messages.create') }} {{ __('locky::messages.permission') }}</h5>
                     <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close" title="{{ __('Close') }}">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-md-12">                            
                                 <div class="form-group">
-                                    <label for="name">{{ __('Name') }}</label>
+                                    <label for="name">{{ __('locky::messages.name') }}</label>
                                     <input type="text"
                                     class="form-control @error('fields.name') is-invalid @enderror" wire:model.debounce.350ms="fields.name" id="name" aria-describedby="name" placeholder="">
                                     @error('fields.name')
@@ -47,7 +47,7 @@
                             </button>
                         @else                      
                             <button type="submit" class="btn btn-primary">
-                                {{  __('Create') }}
+                                {{  __('locky::messages.create') }}
                             </button>                       
                         @endif
                     </div>
