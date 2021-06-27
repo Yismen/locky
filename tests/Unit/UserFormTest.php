@@ -73,21 +73,18 @@ class UserFormTest extends TestCase
     public function it_updates_a_user()
     {
         $user = factory(User::class)->create()->toArray();
-        $date = now();
 
         Livewire::test(UserForm::class)
             ->set('fields', $user)
             ->set('fields.name', 'Updated Name')
             ->set('fields.email', 'updated@email.com')
-            ->set('fields.inactivated_at', now())
             ->call('update')
             ->assertEmitted('userSaved')
             ->assertDispatchedBrowserEvent('close-user-modal-form');
 
         $this->assertDatabaseHas('users', [
             'name' => 'Updated Name',
-            'email' => 'updated@email.com',
-            'inactivated_at' => $date,
+            'email' => 'updated@email.com'
         ]);
     }
 

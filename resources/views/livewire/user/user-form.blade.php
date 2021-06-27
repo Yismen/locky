@@ -12,43 +12,55 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                    @if ($is_editing)
-                        <form wire:submit.prevent="update">                        
+
+                <div wire:key="inactivateUser">
+                    @if ($is_editing && !$user->isActive())
+                        <div class="modal-body">                                  
+                            <div class="alert alert-danger" role="alert">
+                                <strong>{{ __('locky::messages.inactive_user_alert') }}</strong>
+                            </div>  
+                        </div>
+                        <div class="modal-footer bg-light">                     
+                            <a href="#" class="btn btn-warning" wire:click.prevent="activateUser({{ $user->id }})">
+                                {{  __('locky::messages.activate') }}
+                            </a>
+                        </div>
                     @else
-                        <form wire:submit.prevent="store">
+                        <form 
+                            @if ($is_editing)
+                                wire:submit.prevent="update" wire:key="update_form"   
+                            @else
+                                wire:submit.prevent="store" wire:key="store_form"
+                            @endif
+                        >
+                            <div class="modal-body">
+                                @include('locky::livewire.user._active-users-form')
+                            </div>
+                            {{-- /Modal Body --}}
+                            <div class="modal-footer">
+                                {{-- <button type="button" class="btn btn-dark" data-dismiss="modal">{{ __('Close') }}</button> --}}
+                                @if ($is_editing)  
+                                    <button type="submit" class="btn btn-success">
+                                        {{  __('locky::messages.update') }}
+                                    </button>
+                                @else        
+                                    <button type="submit" class="btn btn-primary">
+                                        {{  __('locky::messages.create') }}
+                                    </button>               
+                                @endif
+                            </div>
+
+                            @if ($is_editing && $user->isActive())
+                                <div class="modal-footer bg-light" wire:loading.remove  wire:target="update">                                
+                                    <a href="#" class="btn btn-danger" wire:click.prevent="inactivateUser({{ $user->id }})">
+                                        {{  __('locky::messages.inactivate') }}
+                                    </a>
+                                </div>
+                            @endif
+                        </form>
                     @endif
+                </div>
                 
-                    <div class="modal-body">
-                        @if ($is_editing && $user->inactivated_at)                            
-                            <label for="inactivated_at">{{ __('locky::messages.inactivation_date') }}</label>
-                            <input type="date"
-                            class="form-control @error('fields.inactivated_at') is-invalid @enderror" wire:model.debounce.350ms="fields.inactivated_at" id="inactivated_at" aria-describedby="inactivated_at" placeholder="">
-                            @error('fields.inactivated_at')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>                          
-                            @enderror
-                            <p class="form-text text-muted">
-                                {{ __('Remove date to re-activate') }}
-                            </p>
-                        @else
-                            @include('locky::livewire.user._active-users-form')
-                        @endif
-                        {{-- /Modal Body --}}
-                    </div>
-                    <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-dark" data-dismiss="modal">{{ __('Close') }}</button> --}}
-                        @if ($is_editing)                        
-                            <button type="submit" class="btn btn-success">
-                                {{  __('Update') }}
-                            </button>
-                        @else                      
-                            <button type="submit" class="btn btn-primary">
-                                {{  __('locky::messages.create') }}
-                            </button>                       
-                        @endif
-                    </div>
-                </form>
             </div>
         </div>
     </div>

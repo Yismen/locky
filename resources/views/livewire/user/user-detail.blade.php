@@ -28,9 +28,9 @@
                                 <th class="col-4">{{ __('locky::messages.status') }}</th>
                                 <td>
                                     @if ($user->inactivated_at)
-                                        Inactive / {{ $user->inactivated_at ?? '' }}
+                                    {{ __('locky::messages.inactive') }} / {{ $user->inactivated_at ?? '' }}
                                     @else
-                                        Active
+                                    {{ __('locky::messages.active') }}
                                     @endif
                                 </td>
                             </tr>

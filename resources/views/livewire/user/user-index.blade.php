@@ -1,10 +1,11 @@
 <div class="container mx-auto">
     <div class="card">
-        <div class="card-body">
-            <div class="row">
+        <div class="card-body ">
+            <div class="align-items-baseline row">
                 <div class="col-md-4">
-                    <h4 class="card-title px-5">
+                    <h4 class="card-title">
                         {{ __('locky::messages.users_list') }}
+                        <span class="badge badge-info text-light">{{ $users->count() }}</span>
                     </h4>
                 </div>
                 <div class="col-md-8">
@@ -83,7 +84,11 @@
                             <tr class="text-{{ $user->inactivated_at ? 'danger' : ''}} ">
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->inactivated_at }}</td>
+                                <td>
+                                    @unless ($user->isActive())
+                                        <span class="badge badge-danger text-white">{{ __('locky::messages.inactive') }}</span>
+                                    @endunless
+                                </td>
                                 <td>
                                     @foreach ($user->roles as $role)
                                         <span class="badge bg-success text-light">

@@ -29,7 +29,6 @@ class UserForm extends Component
         'name',
         'email',
         'password',
-        'inactivated_at',
     ];
     /**
      * Validation Rules
@@ -38,7 +37,6 @@ class UserForm extends Component
         'fields.name' => 'required|min:3|unique:users,name',
         'fields.email' => 'required|min:3|unique:users,email',
         'fields.password' => 'nullable|min:8',
-        'fields.inactivated_at' => 'sometimes|nullable|date',
     ];
 
     public $user;
@@ -133,16 +131,9 @@ class UserForm extends Component
             ]
         ));
 
-
         $user = app(User::class)->findOrFail($this->fields['id']);
 
         $user->update($this->fields);
-
-        if ($this->fields['inactivated_at'] ?? null) {
-            $user->inactivated_at = $this->fields['inactivated_at'];
-        } else {
-            $user->inactivated_at = null;
-        }
 
         $user->save();
 
@@ -183,6 +174,26 @@ class UserForm extends Component
         } else {
             $this->user->removeRole($role->name);
         };
+
+        $this->emit('userSaved');
+    }
+
+    public function activateUser(int $user_id)
+    {
+        // dd("activar");
+        $this->user = app(User::class)->findOrFail($user_id);
+
+        $this->user->activate();
+
+        $this->emit('userSaved');
+    }
+
+    public function inactivateUser(int $user_id)
+    {
+        // dd("desactivar");
+        $this->user = app(User::class)->findOrFail($user_id);
+
+        $this->user->inactivate();
 
         $this->emit('userSaved');
     }

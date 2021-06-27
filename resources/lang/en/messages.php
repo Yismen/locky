@@ -24,4 +24,9 @@ return [
     'details' => 'Details',
     'for' => 'For',
     'created_at' => 'Created At',
+    'activate' => 'Activate',
+    'inactivate' => 'Inacivate',
+    'inactive_user_alert' => 'This user is not active at the moment, which should limit access to some app functionalities!',
+    'inactive' => 'Inactive',
+    'active' => 'Active',
 ];

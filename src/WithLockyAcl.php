@@ -40,4 +40,9 @@ trait WithLockyAcl
         $this->inactivated_at = $date;
         $this->save();
     }
+
+    public function isActive()
+    {
+        return $this->inactivated_at === null;
+    }
 }

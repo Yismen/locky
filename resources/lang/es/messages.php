@@ -24,4 +24,9 @@ return [
     'details' => 'Detalles',
     'for' => 'Para',
     'created_at' => 'Creado En',
+    'activate' => 'Activar',
+    'inactivate' => 'Desactivar',
+    'inactive_user_alert' => 'Este usuario está inactivado por el momento, lo cual podría limitar acceso a algunas funcionalidades!',
+    'inactive' => 'Inactivo',
+    'activo' => 'Activo',
 ];

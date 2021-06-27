@@ -43,7 +43,7 @@
                         {{-- <button type="button" class="btn btn-dark" data-dismiss="modal">{{ __('Close') }}</button> --}}
                         @if ($is_editing)                        
                             <button type="submit" class="btn btn-success">
-                                {{  __('Update') }}
+                                {{  __('locky::messages.update') }}
                             </button>
                         @else                      
                             <button type="submit" class="btn btn-primary">
